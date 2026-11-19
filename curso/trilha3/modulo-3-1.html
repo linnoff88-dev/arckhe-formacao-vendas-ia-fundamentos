@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.1 — Fechar sem forçar | Fundamentos de Vender IA</title>
+  <meta name="inema-course" content="vender-ia-fundamentos">
+
+  <!-- ANTI-FOUC -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'purple' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; }
+        } else {
+          var legacy = localStorage.getItem('theme');
+          if (legacy === 'light') p.theme = 'claro';
+          else if (legacy === 'dark') p.theme = 'inema-dark';
+        }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = {
+        'inema-dark': { dark: true, attr: null, cs: 'dark' },
+        'claro': { dark: false, attr: null, cs: 'light' },
+        'sepia': { dark: false, attr: 'sepia', cs: 'light' },
+        'foco': { dark: null, attr: 'foco', cs: null },
+        'contraste': { dark: true, attr: 'contraste', cs: 'dark' }
+      };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark');
+      else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter');
+      html.setAttribute('data-accent', p.accent || 'purple');
+      var s = html.style;
+      var scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString());
+      s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch');
+      s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif'
+        : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald: [152,76,45], blue: [217,91,60], purple: [258,90,66], amber: [38,92,50], teal: [174,72,41], rose: [350,89,60] };
+      var a = ACC[p.accent] || ACC.purple;
+      s.setProperty('--accent-h', a[0] + ''); s.setProperty('--accent-s', a[1] + '%'); s.setProperty('--accent-l', a[2] + '%');
+      s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) {
+      try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {}
+    }
+  })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/learn.css">
+
+  <script type="application/json" data-inema-manifest>
+{"course":"vender-ia-fundamentos","tracks":[
+{"n":"1","title":"Mentalidade","modules":[{"id":"1-1","title":"Síndrome do impostor","topics":7,"href":"curso/trilha1/modulo-1-1.html"},{"id":"1-2","title":"Identidade de quem vende IA","topics":7,"href":"curso/trilha1/modulo-1-2.html"}]},
+{"n":"2","title":"Confiança","modules":[{"id":"2-1","title":"Como construir confiança 101","topics":7,"href":"curso/trilha2/modulo-2-1.html"},{"id":"2-2","title":"Posicionamento e prova","topics":7,"href":"curso/trilha2/modulo-2-2.html"}]},
+{"n":"3","title":"Fechamento","modules":[{"id":"3-1","title":"Fechar sem forçar","topics":7,"href":"curso/trilha3/modulo-3-1.html"},{"id":"3-2","title":"Conversão: objeções e próximos passos","topics":7,"href":"curso/trilha3/modulo-3-2.html"}]},
+{"n":"4","title":"Prática","modules":[{"id":"4-1","title":"Roteiros e scripts prontos","topics":7,"href":"curso/trilha4/modulo-4-1.html"},{"id":"4-2","title":"Plano de 30 dias","topics":7,"href":"curso/trilha4/modulo-4-2.html"}]}
+]}
+</script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    .skip { position: absolute; left: -9999px; top: 0; z-index: 100; background: #111827; color: #FACC15; padding: .5rem 1rem; border-radius: .5rem; }
+    .skip:focus { left: .5rem; top: .5rem; }
+    [id] { scroll-margin-top: 88px; }
+    :focus-visible { outline: 3px solid var(--accent-2, #38bdf8); outline-offset: 2px; }
+
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; } html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; } html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; } html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; } html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; } html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .bg-purple-500\/10, html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124, 58, 237, 0.18); }
+    html:not(.dark) .text-emerald-400 { color: #059669; } html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; } html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; } html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary, html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; } html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-nova-versao" style="position:relative;z-index:9998;background:#FACC15;color:#0c0c10;font:600 14px/1.4 Sora,Inter,system-ui,sans-serif;padding:10px 16px;text-align:center">Este curso tem uma versão nova, mais direta, com prática e conversa simulada. <a href="https://inematds.github.io/formacao-vendas-ia-fundamentos-v72/" style="color:#0c0c10;text-decoration:underline;font-weight:700">Abrir a versão nova →</a></div>
+
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🤝</span>
+            <span class="font-bold text-lg hidden sm:inline">Vender IA</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+          <span class="text-neutral-600">-</span>
+          <a href="https://inema.pro" target="_blank" class="text-amber-700 hover:text-amber-600 dark:text-slate-300 dark:hover:text-slate-200 text-sm font-medium">PRO</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors text-sm" title="Sua jornada no curso">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge hidden" data-inema-journey-badge aria-hidden="true"></span>
+          </button>
+          <a href="../trilha1/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Mentalidade</span></a>
+          <a href="../trilha2/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Confiança</span></a>
+          <a href="index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Fechamento</span></a>
+          <a href="../trilha4/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Prática</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-1">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo">
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Breadcrumb">
+      <div class="flex items-center space-x-2 text-sm text-neutral-400">
+        <a href="../../index.html" class="hover:text-purple-400">Início</a>
+        <span>/</span>
+        <a href="index.html" class="hover:text-purple-400">Trilha 3</a>
+        <span>/</span>
+        <span class="text-purple-400">Módulo 3.1</span>
+      </div>
+    </nav>
+
+    <article id="modulo-3-1" data-inema-module="3-1" data-inema-track="3">
+    <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MODULO 3.1</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">🪶 Fechar sem forçar</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl" data-inema-block="m3-1-head">Fechar não é empurrar. É pedir um sim do tamanho da confiança que existe hoje — e depois usar esse sim para construir a confiança que ainda não existe.</p>
+        <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">7</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">70</div><div class="text-xs text-neutral-400">Minutos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Intermediário</div><div class="text-xs text-neutral-400">Nível</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Teoria+Prática</div><div class="text-xs text-neutral-400">Tipo</div></div>
+        </div>
+        <div data-inema-meter="modulo:3-1" class="inema-meter mt-6 max-w-md" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do módulo 3.1">
+          <div class="flex items-center gap-3">
+            <span class="text-purple-400 font-bold w-12" data-inema-meter-pct>0%</span>
+            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-16" data-inema-meter-frac>0 de 7</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-10">
+
+        <div><!-- COLUNA PRINCIPAL -->
+
+        <!-- TOPICO 1 -->
+        <section id="topico-1" data-inema-topic="modulo-3-1#topico-1" class="mb-16">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+              <h2 class="text-2xl font-bold">🎯 O objetivo da primeira call não é o contrato</h2>
+            </div>
+            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+          </div>
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m3-1-t1-p1">
+            Quem chega numa primeira conversa querendo assinar um projeto de alto valor está pedindo algo que o outro lado
+            ainda não tem como dar. Falta o único insumo que autoriza uma decisão cara:
+            <strong class="text-purple-400">confiança acumulada</strong>. O que se fecha numa primeira call é o
+            <strong class="text-white">próximo passo</strong> — e só.
+          </p>
+          <div class="bg-dark-700/40 border-l-4 border-purple-500/40 rounded-r-lg px-4 py-3 mb-6">
+            <p class="text-sm text-neutral-300"><strong class="text-purple-400">Novo aqui?</strong> Uma <strong>call de diagnóstico</strong>
+            é a primeira conversa em que você investiga o problema do cliente antes de propor qualquer coisa — quantas horas ele perde,
+            quanto custa o erro, quem decide. <strong>Escopo</strong> é a lista fechada do que você vai entregar (e do que não vai).
+            <strong>Ticket</strong> é o valor de uma venda. E <strong>prospecção fria</strong> é falar com quem nunca ouviu seu nome —
+            justamente o cenário em que a confiança começa do zero.</p>
+          </div>
+          <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">💡</span> A regra do tamanho do pedido</h3>
+            <p class="text-neutral-300 mb-3">O tamanho do sim que você pode pedir é sempre proporcional à confiança que já existe.</p>
+            <ul class="space-y-2 text-neutral-300 text-sm">
+              <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong class="text-white">Confiança zero</strong> (você foi até ele): o pedido é uma entrega pequena, rápida e barata.</span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong class="text-white">Confiança média</strong> (ele veio até você): o pedido pode ser um projeto delimitado.</span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong class="text-white">Confiança alta</strong> (você já entregou promessas): o pedido pode ser o contrato longo, com preço cheio.</span></li>
+            </ul>
+          </div>
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m3-1-t1-p2">Na prática, a primeira call tem três momentos — e nenhum deles se chama "assinatura":</p>
+          <div class="space-y-6 mb-6">
+            <div class="flex items-start space-x-4">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+              <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+                <h4 class="font-semibold text-white mb-1">Abrir sem empolgação</h4>
+                <p class="text-sm text-neutral-400">Você chega calmo, como quem já fez isso muitas vezes. Empolgação demais é lida como escassez de clientes.</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+              <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+                <h4 class="font-semibold text-white mb-1">Fazer o outro falar</h4>
+                <p class="text-sm text-neutral-400">Cada frase que ele diz é matéria-prima da sua proposta. Quem fala sozinho não descobre o que o cliente valoriza.</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+              <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+                <h4 class="font-semibold text-white mb-1">Escolher uma dor e pedir o menor sim</h4>
+                <p class="text-sm text-neutral-400">Entre tudo o que apareceu, você separa o problema que dá para resolver rápido — e propõe uma entrega pequena, com prazo curto e preço que não exige reunião de diretoria.</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 2 -->
+        <section id="topico-2" data-inema-topic="modulo-3-1#topico-2" class="mb-16">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+              <h2 class="text-2xl font-bold">💵 O primeiro sim: o menor valor possível</h2>
+            </div>
+            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+          </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t2-p1">
+            Existe um patamar de preço abaixo do qual as pessoas <strong class="text-purple-400">param de deliberar</strong>.
+            Em prospecção fria com pequenas e médias empresas, esse patamar costuma girar em torno de
+            <strong class="text-white">US$ 100</strong> — adapte ao seu mercado. A lógica não é o dinheiro: é que discutir
+            internamente se vale a pena custa mais tempo do que o próprio valor em jogo. É mais barato experimentar do que decidir.
+          </p>
+          <div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+            <svg viewBox="0 0 1000 250" class="w-full h-auto" role="img" aria-label="Comparação de duas decisões: à esquerda, um valor pequeno gera decisão imediata com pouca deliberação; à direita, um valor alto gera reuniões, comparação de fornecedores e adiamento">
+              <defs>
+                <linearGradient id="m31-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c084fc"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
+                <filter id="m31-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <pattern id="m31-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#a855f7" opacity="0.12"/></pattern>
+                <marker id="m31-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"/></marker>
+                <marker id="m31-ahc" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+              </defs>
+              <rect x="0" y="0" width="1000" height="250" fill="url(#m31-grid)"/>
+              <path d="M500,20 L500,232" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="9 9" opacity="0.6"/>
+              <g filter="url(#m31-glow)"><rect x="40" y="46" width="180" height="60" rx="14" fill="#1a1230" stroke="url(#m31-grad)" stroke-width="2"/></g>
+              <text x="130" y="72" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-weight="600" font-size="17">Pedido pequeno</text>
+              <text x="130" y="93" text-anchor="middle" fill="#e2d3fb" font-family="Inter,sans-serif" font-size="12.5">≈ US$ 100</text>
+              <g fill="none" stroke="#c084fc" stroke-width="1.8" opacity="0.55"><path d="M220,76 L300,76" marker-end="url(#m31-ah)"/></g>
+              <rect x="302" y="52" width="160" height="48" rx="10" fill="#1a1230" stroke="#c084fc" stroke-width="2"/>
+              <text x="382" y="82" text-anchor="middle" fill="#e2d3fb" font-family="Inter,sans-serif" font-size="13">decide na hora</text>
+              <text x="130" y="152" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12.5">deliberação: minutos · 1 pessoa</text>
+              <text x="130" y="180" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12.5">risco percebido: baixo</text>
+              <rect x="540" y="46" width="180" height="60" rx="14" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/>
+              <text x="630" y="72" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-weight="600" font-size="17">Pedido grande</text>
+              <text x="630" y="93" text-anchor="middle" fill="#9ad6ff" font-family="Inter,sans-serif" font-size="12.5">≈ US$ 10.000</text>
+              <g fill="none" stroke="#38bdf8" stroke-width="1.8" opacity="0.5"><path d="M720,76 L840,76" marker-end="url(#m31-ahc)"/></g>
+              <rect x="842" y="52" width="120" height="48" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/>
+              <text x="902" y="82" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-size="12.5">adiamento</text>
+              <text x="630" y="152" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12.5">deliberação: semanas · 3+ pessoas</text>
+              <text x="630" y="180" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12.5">risco percebido: alto</text>
+            </svg>
+            <p class="text-xs text-neutral-500 mt-2 text-center">Repare no que muda de um lado para o outro: não é só o preço, é o <strong>custo de decidir</strong>. O primeiro sim existe para eliminar esse custo.</p>
+          </div>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6">
+            <div class="p-4 border-b border-dark-600"><h3 class="font-semibold text-purple-400">🎯 Copie e rode: desenhe sua oferta de primeiro sim</h3></div>
+            <div class="p-4">
+              <p class="text-sm text-neutral-400 mb-3"><strong class="text-neutral-300">Objetivo:</strong> transformar o que você vende hoje numa entrega pequena, rápida e barata que um cliente novo aceite sem precisar pensar muito.</p>
+              <pre class="font-mono text-sm bg-dark-900/70 rounded-lg p-4 overflow-x-auto text-neutral-300 whitespace-pre-wrap">Você é um estrategista de vendas para prestadores de serviço de IA.
+
+O que eu vendo hoje: &lt;descreva em 1 frase — ex.: agente de atendimento no site&gt;
+Meu cliente-alvo: &lt;setor, porte e cargo de quem decide&gt;
+Meu ticket cheio hoje: &lt;valor&gt;
+Prazo típico do projeto cheio: &lt;semanas&gt;
+
+Desenhe 3 ofertas de "primeiro sim" para esse cliente. Cada uma com:
+1. Nome da entrega (curto, sem jargão técnico)
+2. O que é entregue (máximo 3 itens) e prazo (cabe em 5 dias úteis)
+3. Preço sugerido, no patamar em que o cliente decide sozinho
+4. O resultado que ele percebe (tempo, dinheiro ou risco)
+5. Que informação sobre o negócio dele essa entrega me revela
+
+Ranqueie as 3 por facilidade de entrega x valor percebido e explique
+em 2 linhas por que a nº 1 venceu.</pre>
+              <p class="text-sm text-neutral-400 mt-3"><strong class="text-neutral-300">Como verificar:</strong> a melhor opção precisa passar em três testes — você consegue entregá-la em até 5 dias sem depender de acesso a sistemas internos, o preço não exige aprovação de terceiros, e o item 6 revela algo que você não descobriria só conversando.</p>
+            </div>
+          </div>
+          <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+            <p class="text-neutral-300 text-sm">Descubra o patamar do seu mercado perguntando, ainda na call: "quando vocês testam um fornecedor novo, até quanto costuma passar sem virar processo interno de aprovação?". A resposta é o teto da sua primeira oferta.</p>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 3 -->
+        <section id="topico-3" data-inema-topic="modulo-3-1#topico-3" class="mb-16">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+              <h2 class="text-2xl font-bold">⚠️ Barato demais vira suspeita</h2>
+            </div>
+            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+          </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t3-p1">
+            O primeiro sim é barato <em>em relação ao valor percebido</em>, nunca barato em termos absolutos.
+            Ninguém compra um carro por US$ 100: o preço tão fora da escala do produto vira sinal de golpe.
+            O ponto certo é aquele em que o cliente pensa <strong class="text-purple-400">"pelo que isso pode me dar, é pouco"</strong> —
+            e não <strong class="text-red-400">"isso é barato demais para ser sério"</strong>.
+          </p>
+          <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> Atenção</h3>
+            <p class="text-neutral-300 text-sm">Trabalhar de graça para "provar valor" costuma piorar a conversa, não melhorá-la. Sem preço nenhum, o cliente não tem como calibrar o que está recebendo, não prioriza o projeto na agenda dele, e você perde a referência para o segundo pedido. Cobrar pouco é diferente de não cobrar.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+              <h4 class="font-bold text-emerald-400 mb-4">✓ Preço de entrada bem calibrado</h4>
+              <ul class="space-y-3 text-neutral-300">
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Fica abaixo do que o cliente já gasta com o problema, e acima do que ele pagaria por uma ferramenta genérica.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Tem prazo curto, escopo em uma frase, e é apresentado como <strong>o começo</strong> — não como toda a solução.</span></li>
+              </ul>
+            </div>
+            <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+              <h4 class="font-bold text-red-400 mb-4">✗ Preço que destrói a percepção</h4>
+              <ul class="space-y-3 text-neutral-300">
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Valor simbólico para um problema que custa dezenas de milhares — parece bom demais.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Faço de graça e depois a gente vê", ou desconto oferecido antes mesmo de existir objeção.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">📊</span> Referência de comparação</h3>
+            <p class="text-neutral-300 text-sm">Descubra com o que o cliente vai comparar sua entrega: um agente de atendimento é comparado a uma assinatura mensal de ferramenta pronta; uma auditoria, a horas de consultoria. O primeiro sim fica no mesmo <em>universo</em> dessa referência — um pouco acima dela, nunca dez vezes abaixo.</p>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 4 -->
+        <section id="topico-4" data-inema-topic="modulo-3-1#topico-4" class="mb-16">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+              <h2 class="text-2xl font-bold">🦴 Esqueletos no armário: o risco do escopo grande</h2>
+            </div>
+            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+          </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t4-p1">
+            Toda empresa tem problemas que ninguém conta na primeira conversa: a planilha que sustenta o processo inteiro,
+            o sistema antigo sem integração, a pessoa que precisa aprovar e nunca responde. Fechar um
+            <strong class="text-purple-400">escopo grande</strong> depois de duas conversas é apostar que esses esqueletos não existem.
+            Eles existem — e não por má-fé: o cliente simplesmente convive com eles há tanto tempo que já nem os enxerga.
+          </p>
+          <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">⚖️</span> As duas saídas ruins</h3>
+            <ul class="space-y-3 text-neutral-300 text-sm">
+              <li class="flex items-start space-x-2"><span class="text-purple-400 font-bold mr-1">A.</span><span><strong class="text-white">Você se prejudica:</strong> o projeto orçado para três semanas vira seis meses e o valor que parecia bom vira prejuízo por hora trabalhada.</span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400 font-bold mr-1">B.</span><span><strong class="text-white">O cliente se prejudica:</strong> para não perder dinheiro, você corta qualidade — e a confiança que queria construir some.</span></li>
+            </ul>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+              <h4 class="font-bold text-emerald-400 mb-4">✓ Como proteger o escopo</h4>
+              <ul class="space-y-3 text-neutral-300">
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Perguntar <em>como o trabalho acontece hoje</em>, passo a passo, e não só qual é o objetivo.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Pedir para ver uma tela, um relatório ou uma planilha real antes de orçar.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Escrever no acordo o que <strong>não</strong> está incluído, e usar a primeira entrega paga como a própria investigação.</span></li>
+              </ul>
+            </div>
+            <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+              <h4 class="font-bold text-red-400 mb-4">✗ Como o escopo estoura</h4>
+              <ul class="space-y-3 text-neutral-300">
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Orçar com base apenas no que o cliente descreveu de memória.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Assumir que os dados estão organizados e acessíveis.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Aceitar "ah, isso é rapidinho" sem verificar, e deixar o prazo aberto para manter o clima agradável.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="bg-dark-700/40 border-l-4 border-purple-500/40 rounded-r-lg px-4 py-3 mb-6">
+            <p class="text-sm text-neutral-300"><strong class="text-purple-400">Novo aqui?</strong> <strong>Proposta</strong> é o documento com escopo, prazo e preço.
+            <strong>Retainer</strong> é um valor fixo mensal por um serviço contínuo — o oposto de um projeto com data para acabar.
+            E <strong>ROI</strong> (retorno sobre investimento) é quanto o cliente ganha ou economiza dividido pelo que ele pagou.</p>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 5 -->
+        <section id="topico-5" data-inema-topic="modulo-3-1#topico-5" class="mb-16">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+              <h2 class="text-2xl font-bold">🙅 Dizer não constrói confiança</h2>
+            </div>
+            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+          </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t5-p1">
+            Existe um momento perigoso na venda: aquele em que o cliente finalmente confia em você e começa a despejar ideias.
+            "Seria ótimo se também fizesse isso, e isso, e aquilo." Quem passou meses procurando cliente tende a dizer sim a tudo.
+            É exatamente aí que o <strong class="text-purple-400">autocontrole</strong> vale mais do que qualquer técnica de fechamento.
+          </p>
+          <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🎚️</span> Por que o "não" gera confiança</h3>
+            <ul class="space-y-2 text-neutral-300 text-sm">
+              <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>Quem tem fila de clientes recusa sem medo. Recusar comunica demanda sem que você precise afirmar que tem demanda.</span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>Se você aceita tudo, o cliente aprende que basta pedir — e o escopo vira uma negociação permanente.</span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>Escolher uma coisa e entregá-la bem produz prova; aceitar dez e entregar seis produz desculpa.</span></li>
+            </ul>
+          </div>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6">
+            <div class="p-4 border-b border-dark-600"><h3 class="font-semibold text-purple-400">🗣️ A frase pronta para reduzir sem recusar</h3></div>
+            <div class="p-4">
+              <pre class="font-mono text-sm bg-dark-900/70 rounded-lg p-4 overflow-x-auto text-neutral-300 whitespace-pre-wrap">"Gostei de tudo isso — dá para fazer. Só não ao mesmo tempo.
+Das coisas que você citou, qual delas, se estivesse resolvida
+até &lt;prazo curto — ex.: sexta que vem&gt;, já mudaria sua semana?
+
+Começo por essa. As outras entram na conversa seguinte,
+quando eu já conhecer seus &lt;processo/sistema/dados&gt; de verdade."</pre>
+              <p class="text-sm text-neutral-400 mt-3"><strong class="text-neutral-300">Como verificar:</strong> se o cliente responde escolhendo <em>uma</em> das ideias, funcionou. Se ele insiste em "faz tudo junto", o problema não é escopo — é que ele ainda não entendeu que a primeira entrega existe para você conhecer o negócio dele.</p>
+            </div>
+          </div>
+          <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+            <p class="text-neutral-300 text-sm">Substitua "não" por "não agora". A frase "isso a gente faz na etapa dois" preserva a ideia do cliente, protege seu prazo e ainda cria, de graça, o motivo da próxima conversa.</p>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 6 -->
+        <section id="topico-6" data-inema-topic="modulo-3-1#topico-6" class="mb-16">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+              <h2 class="text-2xl font-bold">📉 Satisfação = realidade ÷ expectativa</h2>
+            </div>
+            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+          </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t6-p1">
+            A satisfação do cliente não depende do tamanho da entrega. Depende da razão entre o que ele recebeu e o que
+            esperava receber. Quem está desesperado por fechar promete o mundo — e, ao inflar o denominador,
+            <strong class="text-red-400">garante a decepção</strong> antes mesmo de começar o trabalho.
+          </p>
+          <div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+            <svg viewBox="0 0 1000 210" class="w-full h-auto" role="img" aria-label="Equação: a entrega real dividida pela expectativa criada resulta na satisfação; à esquerda a promessa exagerada derruba o resultado, à direita a promessa pequena e cumprida eleva o resultado">
+              <defs>
+                <linearGradient id="m31b-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c084fc"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
+                <filter id="m31b-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <pattern id="m31b-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#a855f7" opacity="0.12"/></pattern>
+              </defs>
+              <rect x="0" y="0" width="1000" height="210" fill="url(#m31b-grid)"/>
+              <rect x="40" y="42" width="230" height="48" rx="11" fill="#1a1230" stroke="#c084fc" stroke-width="2"/>
+              <text x="155" y="72" text-anchor="middle" fill="#e2d3fb" font-family="Inter,sans-serif" font-weight="600" font-size="16">o que foi entregue</text>
+              <path d="M60,105 L250,105" stroke="#c084fc" stroke-width="2.4" opacity="0.8"/>
+              <rect x="40" y="120" width="230" height="48" rx="11" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/>
+              <text x="155" y="150" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-weight="600" font-size="16">o que foi prometido</text>
+              <text x="320" y="118" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-size="34">=</text>
+              <g filter="url(#m31b-glow)"><rect x="370" y="80" width="200" height="56" rx="14" fill="#1a1230" stroke="url(#m31b-grad)" stroke-width="2"/></g>
+              <text x="470" y="115" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-weight="600" font-size="19">satisfação</text>
+              <rect x="640" y="36" width="320" height="60" rx="12" fill="#2a1015" stroke="#f87171" stroke-width="2"/>
+              <text x="800" y="61" text-anchor="middle" fill="#fecaca" font-family="Inter,sans-serif" font-size="13.5">promessa enorme, entrega boa</text>
+              <text x="800" y="82" text-anchor="middle" fill="#f87171" font-family="Inter,sans-serif" font-weight="600" font-size="14">resultado: frustração</text>
+              <rect x="640" y="116" width="320" height="60" rx="12" fill="#0e2018" stroke="#34d399" stroke-width="2"/>
+              <text x="800" y="141" text-anchor="middle" fill="#a7f3d0" font-family="Inter,sans-serif" font-size="13.5">promessa pequena, entrega cumprida</text>
+              <text x="800" y="162" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="600" font-size="14">resultado: confiança</text>
+            </svg>
+            <p class="text-xs text-neutral-500 mt-2 text-center">Olhe o denominador: você controla a expectativa antes de controlar a entrega. Reduzir a promessa é a forma mais rápida de aumentar a satisfação sem trabalhar mais.</p>
+          </div>
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m3-1-t6-p2">
+            Existe uma consequência menos óbvia disso: <strong class="text-purple-400">o tamanho da promessa importa muito menos
+            que o cumprimento dela</strong>. Cinco promessas pequenas cumpridas constroem mais confiança do que uma promessa
+            grande parcialmente atendida — porque confiança é, no fundo, um histórico de previsões que se confirmaram.
+            O teste antes de prometer qualquer coisa numa call: "eu cumpriria isso mesmo se a semana der errado?". Se a resposta for não,
+            você não está vendendo — está criando uma dívida que vence na entrega.
+          </p>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 7 -->
+        <section id="topico-7" data-inema-topic="modulo-3-1#topico-7" class="mb-16">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">7</span>
+              <h2 class="text-2xl font-bold">🪜 Escada de escopo: do pequeno ao grande</h2>
+            </div>
+            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+          </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t7-p1">
+            Tudo o que veio antes se organiza numa escada. Cada degrau é uma promessa cumprida que compra o direito de subir
+            ao próximo. Você não pula degraus com técnica de persuasão — você sobe com <strong class="text-purple-400">histórico</strong>.
+          </p>
+          <div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+            <svg viewBox="0 0 1000 280" class="w-full h-auto" role="img" aria-label="Escada de quatro degraus subindo da esquerda para a direita: primeiro sim pequeno, descoberta do funcionamento real do negócio, escopo intermediário e por fim o projeto grande, com o preço e a confiança crescendo a cada degrau">
+              <defs>
+                <linearGradient id="m31c-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c084fc"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
+                <filter id="m31c-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <pattern id="m31c-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#a855f7" opacity="0.12"/></pattern>
+              </defs>
+              <rect x="0" y="0" width="1000" height="280" fill="url(#m31c-grid)"/>
+              <path d="M70,235 L300,190 L530,140 L760,88 L940,66" stroke="#38bdf8" stroke-width="2" stroke-dasharray="9 9" fill="none" opacity="0.55"/>
+              <rect x="60" y="205" width="200" height="54" rx="12" fill="#1a1230" stroke="#c084fc" stroke-width="2"/>
+              <text x="160" y="228" text-anchor="middle" fill="#e2d3fb" font-family="Inter,sans-serif" font-weight="600" font-size="14">1 · primeiro sim</text>
+              <text x="160" y="248" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12">entrega em dias · $</text>
+              <rect x="290" y="155" width="200" height="54" rx="12" fill="#1a1230" stroke="#c084fc" stroke-width="2"/>
+              <text x="390" y="178" text-anchor="middle" fill="#e2d3fb" font-family="Inter,sans-serif" font-weight="600" font-size="14">2 · descoberta real</text>
+              <text x="390" y="198" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12">você vê por dentro · $$</text>
+              <rect x="520" y="105" width="200" height="54" rx="12" fill="#1a1230" stroke="#c084fc" stroke-width="2"/>
+              <text x="620" y="128" text-anchor="middle" fill="#e2d3fb" font-family="Inter,sans-serif" font-weight="600" font-size="14">3 · escopo maior</text>
+              <text x="620" y="148" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12">problema conhecido · $$$</text>
+              <g filter="url(#m31c-glow)"><rect x="750" y="52" width="200" height="54" rx="12" fill="#1a1230" stroke="url(#m31c-grad)" stroke-width="2"/></g>
+              <text x="850" y="75" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-weight="600" font-size="14">4 · projeto grande</text>
+              <text x="850" y="95" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12">conversa de consultoria · $$$$</text>
+              <text x="500" y="30" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-size="13">a confiança sobe junto com o preço — nunca antes dele</text>
+            </svg>
+            <p class="text-xs text-neutral-500 mt-2 text-center">Repare que o degrau 2 não é uma venda: é o acesso que a primeira entrega comprou. Sem ele, o degrau 3 seria um chute.</p>
+          </div>
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m3-1-t7-p2">
+            A partir do terceiro degrau acontece a inversão mais interessante desse método: a conversa deixa de ser uma
+            reunião de vendas e vira uma <strong class="text-purple-400">reunião de consultoria</strong>. Antes você torcia por um sim;
+            agora ele pergunta o que você recomenda. A autoridade virou de lado — e virou porque as promessas anteriores foram cumpridas,
+            por menores que fossem. E nunca existiu empresa sem gargalo: se você entregou o degrau 1 e não achou o próximo problema,
+            foi porque não olhou o suficiente durante a entrega. Trate cada entrega como investigação paga.
+          </p>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- CHECAGEM LEVE -->
+        <div data-inema-check="modulo-3-1#q1" class="inema-check bg-dark-800 border border-dark-600 rounded-xl p-6 mb-12">
+          <p class="font-medium mb-4">Auto-verificação rápida (opcional): um cliente novo, vindo de prospecção fria, diz que o seu preço está alto. Qual é a resposta alinhada com este módulo?</p>
+          <div class="inema-check-options space-y-2">
+            <button type="button" data-inema-check-option="0" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Dar 30% de desconto para fechar ainda hoje</button>
+            <button type="button" data-inema-check-option="1" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Reduzir a entrega a uma primeira etapa pequena, mantendo o preço proporcional</button>
+            <button type="button" data-inema-check-option="2" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Fazer o projeto inteiro de graça para provar valor</button>
+          </div>
+          <div data-inema-check-feedback class="mt-4 text-sm" role="status" aria-live="polite"></div>
+        </div>
+
+        <!-- RESUMO FINAL -->
+        <section class="mb-12">
+          <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🎓</span> Resumo do Módulo</h2>
+            <div class="space-y-4 mb-8">
+              <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">O sim é do tamanho da confiança</strong><span class="text-neutral-400"> — na primeira call você fecha o próximo passo, não o contrato.</span></div></div>
+              <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Barato em relação ao valor</strong><span class="text-neutral-400"> — abaixo do patamar de deliberação, mas nunca no território do "bom demais para ser verdade".</span></div></div>
+              <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Escopo pequeno protege os dois lados</strong><span class="text-neutral-400"> — os esqueletos no armário aparecem trabalhando, não conversando.</span></div></div>
+              <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Prometer menos e cumprir</strong><span class="text-neutral-400"> — satisfação é realidade dividida por expectativa; cada promessa cumprida é um degrau.</span></div></div>
+            </div>
+            <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+              <h3 class="font-semibold text-purple-400 mb-2">Próximo Módulo:</h3>
+              <p class="text-neutral-300">3.2 - Conversão: objeções e próximos passos — por que toda objeção é sinal de uma falha anterior, e como conduzir preço, escopo e agenda sem perder o cliente no caminho.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+              <a href="modulo-3-2.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próximo Módulo →</a>
+            </div>
+          </div>
+        </section>
+
+        <div data-inema-meter="trilha:3" class="inema-meter max-w-md mb-4" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da trilha 3">
+          <div class="flex items-center gap-2"><span class="text-xs text-neutral-500 w-24">Trilha 3:</span>
+            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-14" data-inema-meter-pct>0%</span>
+          </div>
+        </div>
+        <div data-inema-meter="curso" class="inema-meter max-w-md mb-8" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do curso">
+          <div class="flex items-center gap-2"><span class="text-xs text-neutral-500 w-24">Curso:</span>
+            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-14" data-inema-meter-pct>0%</span>
+          </div>
+        </div>
+
+        </div><!-- /coluna principal -->
+
+        <!-- TOC STICKY -->
+        <nav data-inema-toc aria-label="Índice da página" class="hidden lg:block sticky top-24 self-start">
+          <p class="text-sm text-neutral-400 mb-2">Seção <span class="inema-toc-pos">1</span> de <span class="inema-toc-total">7</span></p>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#topico-1" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">1. O objetivo da primeira call</a></li>
+            <li><a href="#topico-2" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">2. O primeiro sim</a></li>
+            <li><a href="#topico-3" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">3. Barato demais</a></li>
+            <li><a href="#topico-4" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">4. Esqueletos no armário</a></li>
+            <li><a href="#topico-5" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">5. Dizer não</a></li>
+            <li><a href="#topico-6" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">6. Realidade ÷ expectativa</a></li>
+            <li><a href="#topico-7" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">7. Escada de escopo</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    </article>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>🤝 Fundamentos de Vender IA — Módulo 3.1 · Trilha Fechamento · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800');
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => {
+        if (exp !== explanation) exp.classList.remove('active');
+      });
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', explanation.classList.contains('active') ? 'true' : 'false');
+    }
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const htmlEl = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !htmlEl.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); htmlEl.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      htmlEl.classList.toggle('dark');
+      localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.INEMA && INEMA.registerCheck) {
+        INEMA.registerCheck('modulo-3-1#q1', {
+          answer: 1,
+          explain: {
+            0: 'Não: desconto ensina que seu preço é negociável e enfraquece a percepção de valor.',
+            1: 'Exato — o preço não se negocia, o escopo sim. Uma primeira etapa menor mantém a proporção e ainda revela o negócio dele.',
+            2: 'Não: entregar tudo de graça remove a referência de valor e não gera o compromisso necessário dos dois lados.'
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

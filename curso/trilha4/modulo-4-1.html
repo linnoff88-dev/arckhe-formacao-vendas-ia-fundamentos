@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 4.1 — Roteiros e scripts prontos | Fundamentos de Vender IA</title>
+  <meta name="inema-course" content="vender-ia-fundamentos">
+
+  <!-- ANTI-FOUC -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'purple' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; }
+        } else {
+          var legacy = localStorage.getItem('theme');
+          if (legacy === 'light') p.theme = 'claro';
+          else if (legacy === 'dark') p.theme = 'inema-dark';
+        }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = {
+        'inema-dark': { dark: true, attr: null, cs: 'dark' },
+        'claro': { dark: false, attr: null, cs: 'light' },
+        'sepia': { dark: false, attr: 'sepia', cs: 'light' },
+        'foco': { dark: null, attr: 'foco', cs: null },
+        'contraste': { dark: true, attr: 'contraste', cs: 'dark' }
+      };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark');
+      else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter');
+      html.setAttribute('data-accent', p.accent || 'purple');
+      var s = html.style;
+      var scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString());
+      s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch');
+      s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif'
+        : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald: [152,76,45], blue: [217,91,60], purple: [258,90,66], amber: [38,92,50], teal: [174,72,41], rose: [350,89,60] };
+      var a = ACC[p.accent] || ACC.purple;
+      s.setProperty('--accent-h', a[0] + ''); s.setProperty('--accent-s', a[1] + '%'); s.setProperty('--accent-l', a[2] + '%');
+      s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) {
+      try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {}
+    }
+  })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/learn.css">
+
+  <script type="application/json" data-inema-manifest>
+{"course":"vender-ia-fundamentos","tracks":[
+{"n":"1","title":"Mentalidade","modules":[{"id":"1-1","title":"Síndrome do impostor","topics":7,"href":"curso/trilha1/modulo-1-1.html"},{"id":"1-2","title":"Identidade de quem vende IA","topics":7,"href":"curso/trilha1/modulo-1-2.html"}]},
+{"n":"2","title":"Confiança","modules":[{"id":"2-1","title":"Como construir confiança 101","topics":7,"href":"curso/trilha2/modulo-2-1.html"},{"id":"2-2","title":"Posicionamento e prova","topics":7,"href":"curso/trilha2/modulo-2-2.html"}]},
+{"n":"3","title":"Fechamento","modules":[{"id":"3-1","title":"Fechar sem forçar","topics":7,"href":"curso/trilha3/modulo-3-1.html"},{"id":"3-2","title":"Conversão: objeções e próximos passos","topics":7,"href":"curso/trilha3/modulo-3-2.html"}]},
+{"n":"4","title":"Prática","modules":[{"id":"4-1","title":"Roteiros e scripts prontos","topics":7,"href":"curso/trilha4/modulo-4-1.html"},{"id":"4-2","title":"Plano de 30 dias","topics":7,"href":"curso/trilha4/modulo-4-2.html"}]}
+]}
+</script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    .skip { position: absolute; left: -9999px; top: 0; z-index: 100; background: #111827; color: #FACC15; padding: .5rem 1rem; border-radius: .5rem; }
+    .skip:focus { left: .5rem; top: .5rem; }
+    [id] { scroll-margin-top: 88px; }
+    :focus-visible { outline: 3px solid var(--accent-2, #38bdf8); outline-offset: 2px; }
+
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217, 119, 6, 0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217, 119, 6, 0.08); }
+    html:not(.dark) .bg-amber-900\/20 { background-color: rgba(217, 119, 6, 0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217, 119, 6, 0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(217, 119, 6, 0.18); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-nova-versao" style="position:relative;z-index:9998;background:#FACC15;color:#0c0c10;font:600 14px/1.4 Sora,Inter,system-ui,sans-serif;padding:10px 16px;text-align:center">Este curso tem uma versão nova, mais direta, com prática e conversa simulada. <a href="https://inematds.github.io/formacao-vendas-ia-fundamentos-v72/" style="color:#0c0c10;text-decoration:underline;font-weight:700">Abrir a versão nova →</a></div>
+
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🤝</span>
+            <span class="font-bold text-lg hidden sm:inline">Vender IA</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+          <span class="text-neutral-600">-</span>
+          <a href="https://inema.pro" target="_blank" class="text-amber-700 hover:text-amber-600 dark:text-slate-300 dark:hover:text-slate-200 text-sm font-medium">PRO</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors text-sm" title="Sua jornada no curso">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge hidden" data-inema-journey-badge aria-hidden="true"></span>
+          </button>
+          <a href="../trilha1/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Mentalidade</span></a>
+          <a href="../trilha2/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Confiança</span></a>
+          <a href="../trilha3/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Fechamento</span></a>
+          <a href="index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Prática</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-1">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg> <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg> </button> </div> </div> </div> </nav> <main id="conteudo"> <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Breadcrumb"> <div class="flex items-center space-x-2 text-sm text-neutral-400"> <a href="../../index.html" class="hover:text-amber-400">Início</a> <span>/</span> <a href="index.html" class="hover:text-amber-400">Trilha 4</a> <span>/</span> <span class="text-amber-400">Módulo 4.1</span> </div> </nav> <article id="modulo-4-1" data-inema-module="4-1" data-inema-track="4"> <header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600"> <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"> <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">MODULO 4.1</span> <h1 class="text-3xl sm:text-4xl font-bold mb-4">🎬 Roteiros e scripts prontos</h1> <p class="text-lg text-neutral-400 max-w-3xl" data-inema-block="m4-1-head">Tudo o que você viu nas trilhas 1, 2 e 3 vira texto colável aqui. Sete roteiros reais — ligação fria, e-mail, call de diagnóstico, perguntas, preço e objeções — para você adaptar e usar ainda esta semana.</p>
+        <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">7</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">70</div><div class="text-xs text-neutral-400">Minutos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Prático</div><div class="text-xs text-neutral-400">Nível</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Roteiros</div><div class="text-xs text-neutral-400">Tipo</div></div>
+        </div>
+        <div data-inema-meter="modulo:4-1" class="inema-meter mt-6 max-w-md" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do módulo 4.1">
+          <div class="flex items-center gap-3">
+            <span class="text-amber-400 font-bold w-12" data-inema-meter-pct>0%</span>
+            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-16" data-inema-meter-frac>0 de 7</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-10">
+
+        <div><!-- COLUNA PRINCIPAL -->
+
+        <!-- TOPICO 1 -->
+        <section id="topico-1" data-inema-topic="modulo-4-1#topico-1" class="mb-16">
+          <div class="flex items-center justify-between mb-6"> <div class="flex items-center space-x-4"> <span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">1</span> <h2 class="text-2xl font-bold">🗺️ Como usar os roteiros</h2> </div> <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"> <span aria-hidden="true">?</span><span>Tenho dúvida</span> </button> </div>
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m4-1-t1-p1"> Um roteiro não existe para você <em>ler em voz alta</em>. Ele existe para te dar <strong class="text-amber-400">estrutura</strong> — e estrutura é o que faz o outro lado sentir que você já fez isso muitas vezes. Quem improvisa soa como quem está na primeira vez, e ninguém quer ser o primeiro cliente de ninguém. </p>
+          <div class="bg-dark-700/40 border-l-4 border-amber-500/40 rounded-r-lg px-4 py-3 mb-6">
+            <p class="text-sm text-neutral-300"><strong class="text-amber-400">Novo aqui?</strong> <strong>Prospecção fria</strong> é quando você inicia o contato com alguém que nunca ouviu falar de você — ligação ou e-mail. <strong>Call de diagnóstico</strong> é a conversa em que você entende o problema do cliente antes de propor qualquer coisa. <strong>Escopo</strong> é a lista exata do que está incluído no trabalho. <strong>ICP</strong> (<em>perfil de cliente ideal</em>) é o conjunto de características do cliente para quem sua solução é óbvia — setor, porte, cargo de quem decide.</p>
+          </div>
+          <div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+            <svg viewBox="0 0 1000 250" class="w-full h-auto" role="img" aria-label="Os sete roteiros do módulo dispostos como um funil: prospecção fria por ligação e e-mail levam à call de diagnóstico, que leva às perguntas, ao preço e ao tratamento de objeções, terminando no primeiro sim">
+              <defs> <linearGradient id="m41-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f59e0b"/></linearGradient> <filter id="m41-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter> <pattern id="m41-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#f59e0b" opacity="0.12"/></pattern> <marker id="m41-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"/></marker> <marker id="m41-ahc" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker> </defs> <rect x="0" y="0" width="1000" height="250" fill="url(#m41-grid)"/> <g fill="none" stroke="#38bdf8" stroke-width="1.8" opacity="0.5"> <path d="M186,80 C260,80 270,125 330,125" marker-end="url(#m41-ahc)"/> <path d="M186,170 C260,170 270,125 330,125" marker-end="url(#m41-ahc)"/> <path d="M500,125 L560,125" marker-end="url(#m41-ahc)"/> <path d="M730,125 L790,125" marker-end="url(#m41-ahc)"/> </g> <g font-family="Inter,sans-serif" font-size="13" font-weight="600"> <g class="wf-a"><rect x="40" y="58" width="146" height="44" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="113" y="85" text-anchor="middle" fill="#bfe6ff">ligação fria</text></g> <g class="wf-a"><rect x="40" y="148" width="146" height="44" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="113" y="175" text-anchor="middle" fill="#bfe6ff">e-mail frio</text></g> <rect x="332" y="100" width="168" height="50" rx="12" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="416" y="130" text-anchor="middle" fill="#bfe6ff">call de diagnóstico</text> <rect x="562" y="100" width="168" height="50" rx="12" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="646" y="123" text-anchor="middle" fill="#bfe6ff">perguntas</text><text x="646" y="140" text-anchor="middle" fill="#9ad6ff" font-size="11.5" font-weight="400">temperatura e dor</text> </g> <g filter="url(#m41-glow)"><rect x="792" y="92" width="168" height="66" rx="14" fill="#1f1604" stroke="url(#m41-grad)" stroke-width="2"/></g> <text x="876" y="120" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-weight="600" font-size="17">Primeiro sim</text> <text x="876" y="140" text-anchor="middle" fill="#fcd9a0" font-family="Inter,sans-serif" font-size="12">preço + próximo passo</text> </svg> <p class="text-xs text-neutral-500 mt-2 text-center">Os sete roteiros deste módulo em ordem de uso: dois caminhos de entrada, uma conversa, e um único destino — o primeiro sim pequeno.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+              <h4 class="font-bold text-emerald-400 mb-4">✓ Adaptar</h4>
+              <ul class="space-y-3 text-neutral-300 text-sm">
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Reescrever cada linha com <strong>as suas palavras</strong>, mantendo a ordem dos passos.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Trocar o exemplo de setor pelo <strong>seu ICP</strong> e os números pelos do seu mercado.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Guardar a <strong>intenção</strong> de cada bloco: por que aquele passo existe.</span></li>
+              </ul>
+            </div>
+            <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+              <h4 class="font-bold text-red-400 mb-4">✗ Decorar</h4>
+              <ul class="space-y-3 text-neutral-300 text-sm">
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Ler palavra por palavra — dá para ouvir, e soa como robô de telefonia.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Seguir o roteiro quando o outro lado já mudou de assunto.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Usar palavras que você não usaria no cafezinho.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+            <p class="text-neutral-300 text-sm">Antes de usar qualquer roteiro daqui, leia-o em voz alta uma vez. Toda frase que travar na sua boca, troque. Um roteiro que você não consegue falar naturalmente é pior do que nenhum.</p>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 hover:bg-amber-500/30 transition-colors"><span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span>
+              <span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 2 -->
+        <section id="topico-2" data-inema-topic="modulo-4-1#topico-2" class="mb-16">
+          <div class="flex items-center justify-between mb-6"> <div class="flex items-center space-x-4"> <span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">2</span> <h2 class="text-2xl font-bold">☎️ Roteiro de ligação fria</h2> </div> <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"> <span aria-hidden="true">?</span><span>Tenho dúvida</span> </button> </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m4-1-t2-p1"> A ligação fria tem uma única meta: <strong class="text-amber-400">conseguir a próxima conversa</strong>. Não é vender, não é explicar a solução. E ela começa pedindo licença — porque assumir o tempo do outro sem pedir é o que faz desligarem na sua cara. </p>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6">
+            <div class="p-4 border-b border-dark-600"><h3 class="font-semibold text-amber-400">🎯 Copie e use — ligação fria com permissão para apresentar</h3></div>
+            <div class="p-4">
+              <p class="text-sm text-neutral-400 mb-3"><strong class="text-neutral-300">Objetivo:</strong> sair da ligação com uma reunião marcada, não com uma venda.</p>
+              <pre class="font-mono text-sm bg-dark-900/70 rounded-lg p-4 overflow-x-auto text-neutral-300 whitespace-pre-wrap">[abertura honesta]
+"Oi, aqui é o &lt;seu nome&gt;. Vou ser direto: essa é uma ligação fria.
+ Tudo bem se eu tomar 30 segundos e você me diz se faz sentido?"
+
+[motivo — por que ELES, não por que você]
+"A gente resolve &lt;problema concreto&gt; para &lt;tipo de empresa do seu ICP&gt;.
+ O que costuma acontecer aí é &lt;sintoma que o setor todo tem&gt;."
+
+[uma pergunta só, aberta]
+"Como vocês lidam hoje com &lt;o problema&gt;?"
+
+[próximo passo, com duas opções]
+"Faz sentido a gente marcar 20 minutos pra eu entender melhor?
+ Tenho quinta de manhã ou sexta à tarde — qual fica melhor?"</pre>
+              <p class="text-sm text-neutral-400 mt-3"><strong class="text-neutral-300">Como verificar:</strong> a ligação terminou com data e hora no calendário dos dois lados. Se terminou com "me manda um e-mail que eu vejo", não houve próximo passo — houve educação.</p>
+            </div>
+          </div>
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m4-1-t2-p2"> Metade das ligações não chega em quem decide. Você fala com recepção, com assistente, com alguém que não tem nenhum ganho pessoal na sua solução. Apresentar sua proposta para essa pessoa é desperdício: ela não perde nem ganha nada se você resolver o problema. O caminho é outro. </p>
+          <div class="space-y-6 mb-6">
+            <div class="flex items-start space-x-4"> <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">1</span></div> <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"> <h4 class="font-semibold text-white mb-1">Identifique com quem está falando</h4> <p class="text-sm text-neutral-400">"Você é quem decide sobre &lt;o tema&gt; aí, ou tem outra pessoa?" — pergunta direta, sem rodeio. Ninguém se ofende.</p> </div> </div> <div class="flex items-start space-x-4"> <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">2</span></div> <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"> <h4 class="font-semibold text-white mb-1">Não apresente — peça a ponte</h4> <p class="text-sm text-neutral-400">"Perfeito. Você consegue me dizer o nome dessa pessoa e o melhor horário pra eu falar com ela?" A pessoa que atende adora resolver isso rápido.</p> </div> </div> <div class="flex items-start space-x-4"> <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">3</span></div> <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"> <h4 class="font-semibold text-white mb-1">Recomece a abertura com quem decide</h4> <p class="text-sm text-neutral-400">Mesmo roteiro, do zero. Quem decide também merece a permissão dos 30 segundos.</p> </div> </div> </div>
+          <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> Atenção</h3>
+            <p class="text-neutral-300 text-sm">Apresentar sua solução para quem não decide não é só perda de tempo: é criar um telefone-sem-fio. A pessoa vai repetir sua ideia mal contada para quem decide, e você perde a chance de fazer a primeira impressão. Prefira não apresentar a apresentar para o interlocutor errado.</p>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 hover:bg-amber-500/30 transition-colors"><span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span>
+              <span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 3 -->
+        <section id="topico-3" data-inema-topic="modulo-4-1#topico-3" class="mb-16">
+          <div class="flex items-center justify-between mb-6"> <div class="flex items-center space-x-4"> <span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">3</span> <h2 class="text-2xl font-bold">✉️ Sequência de e-mail frio</h2> </div> <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"> <span aria-hidden="true">?</span><span>Tenho dúvida</span> </button> </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m4-1-t3-p1"> Cada pedaço do e-mail vende o pedaço seguinte. O <strong class="text-amber-400">assunto</strong> só precisa vender a abertura. O <strong class="text-amber-400">corpo</strong> só precisa vender o próximo passo. Nenhum e-mail frio precisa vender o projeto — se ele tentar, morre no terceiro parágrafo. </p>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6">
+            <div class="p-4 border-b border-dark-600"><h3 class="font-semibold text-amber-400">🎯 Copie e use — sequência de três e-mails</h3></div>
+            <div class="p-4">
+              <p class="text-sm text-neutral-400 mb-3"><strong class="text-neutral-300">Objetivo:</strong> conseguir uma resposta de uma linha, seja "conta mais" ou "não temos interesse". As duas encerram o assunto.</p>
+              <pre class="font-mono text-sm bg-dark-900/70 rounded-lg p-4 overflow-x-auto text-neutral-300 whitespace-pre-wrap">E-MAIL 1 — dia 0
+Assunto: &lt;problema em 3 palavras&gt; na &lt;nome da empresa&gt;?
+
+Oi &lt;nome&gt;, tudo bem?
+Trabalho com &lt;tipo de empresa&gt; resolvendo &lt;problema concreto&gt;.
+Na maioria delas o gargalo é &lt;sintoma comum&gt; — e isso custa
+tempo todo mês.
+Faz sentido 20 minutos essa semana pra eu entender como é aí?
+&lt;seu nome&gt;
+
+E-MAIL 2 — dia 3 (responder no mesmo fio)
+Assunto: Re: &lt;o mesmo assunto&gt;
+
+Oi &lt;nome&gt;, subindo esse aqui.
+Um detalhe concreto: em &lt;tipo de empresa parecida&gt; a gente
+&lt;resultado curto e específico&gt;.
+Se não for prioridade agora, me diz que eu paro por aqui.
+
+E-MAIL 3 — dia 8 (encerramento)
+Assunto: Re: &lt;o mesmo assunto&gt;
+
+&lt;nome&gt;, último e-mail meu — não quero virar ruído.
+Se em algum momento &lt;o problema&gt; virar prioridade, é só responder
+aqui que eu volto. Sucesso aí.</pre>
+              <p class="text-sm text-neutral-400 mt-3"><strong class="text-neutral-300">Como verificar:</strong> os três e-mails cabem na tela do celular sem rolar. Se qualquer um passar de 90 palavras, corte — e-mail longo de estranho não é lido.</p>
+            </div>
+          </div>
+          <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">📐</span> Os critérios de parada</h3>
+            <ul class="space-y-2 text-neutral-300 text-sm">
+              <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Três e-mails e acabou.</strong> O quarto não converte — só queima seu nome e o domínio de onde você envia.</span></li>
+              <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Respondeu "não"?</strong> Agradeça em uma linha e saia. O "não" de hoje é o "me liga" de daqui a seis meses se você sair bem.</span></li>
+              <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Respondeu qualquer coisa?</strong> A sequência morre ali. A partir da resposta é conversa, não sequência.</span></li>
+            </ul>
+          </div>
+          <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+            <p class="text-neutral-300 text-sm">Mande os três e-mails no mesmo fio, respondendo o seu próprio. Assim quem abre o segundo já vê o primeiro — e você não precisa repetir o contexto.</p>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 hover:bg-amber-500/30 transition-colors"><span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span>
+              <span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 4 -->
+        <section id="topico-4" data-inema-topic="modulo-4-1#topico-4" class="mb-16">
+          <div class="flex items-center justify-between mb-6"> <div class="flex items-center space-x-4"> <span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">4</span> <h2 class="text-2xl font-bold">🧭 Roteiro da call de diagnóstico</h2> </div> <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"> <span aria-hidden="true">?</span><span>Tenho dúvida</span> </button> </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m4-1-t4-p1"> Esta é a conversa que decide tudo. O arco é sempre o mesmo: você chega calmo, diz como a conversa vai funcionar, dá um pouco do seu contexto, oferece <strong class="text-amber-400">três fios</strong> para o cliente puxar, e só então pergunta. No fim, você dá um veredito — inclusive o veredito de que não dá para ajudar. </p>
+          <div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+            <svg viewBox="0 0 1000 220" class="w-full h-auto" role="img" aria-label="O arco da call de diagnóstico em seis etapas encadeadas: abertura calma, combinar a estrutura, dar contexto próprio, oferecer três fios, fazer perguntas e fechar com um veredito">
+              <defs> <filter id="m41b-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter> <linearGradient id="m41b-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f59e0b"/></linearGradient> <pattern id="m41b-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#f59e0b" opacity="0.12"/></pattern> <marker id="m41b-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"/></marker> </defs> <rect x="0" y="0" width="1000" height="220" fill="url(#m41b-grid)"/> <g fill="none" stroke="#fbbf24" stroke-width="1.8" opacity="0.5"> <path d="M182,110 L206,110" marker-end="url(#m41b-ah)"/> <path d="M334,110 L358,110" marker-end="url(#m41b-ah)"/> <path d="M486,110 L510,110" marker-end="url(#m41b-ah)"/> <path d="M638,110 L662,110" marker-end="url(#m41b-ah)"/> <path d="M790,110 L814,110" marker-end="url(#m41b-ah)"/> </g> <g font-family="Inter,sans-serif" font-size="13" font-weight="600"> <rect x="34" y="84" width="148" height="52" rx="12" fill="#1f1604" stroke="#fbbf24" stroke-width="2"/><text x="108" y="107" text-anchor="middle" fill="#fbbf24">1. Abertura</text><text x="108" y="124" text-anchor="middle" fill="#fcd9a0" font-size="11.5" font-weight="400">calma, sem euforia</text> <rect x="206" y="84" width="128" height="52" rx="12" fill="#1f1604" stroke="#fbbf24" stroke-width="2"/><text x="270" y="107" text-anchor="middle" fill="#fbbf24">2. Estrutura</text><text x="270" y="124" text-anchor="middle" fill="#fcd9a0" font-size="11.5" font-weight="400">como vai funcionar</text> <rect x="358" y="84" width="128" height="52" rx="12" fill="#1f1604" stroke="#fbbf24" stroke-width="2"/><text x="422" y="107" text-anchor="middle" fill="#fbbf24">3. Contexto</text><text x="422" y="124" text-anchor="middle" fill="#fcd9a0" font-size="11.5" font-weight="400">o que você faz hoje</text> <rect x="510" y="84" width="128" height="52" rx="12" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="574" y="107" text-anchor="middle" fill="#bfe6ff">4. Três fios</text><text x="574" y="124" text-anchor="middle" fill="#9ad6ff" font-size="11.5" font-weight="400">ele escolhe um</text> <rect x="662" y="84" width="128" height="52" rx="12" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="726" y="107" text-anchor="middle" fill="#bfe6ff">5. Perguntas</text><text x="726" y="124" text-anchor="middle" fill="#9ad6ff" font-size="11.5" font-weight="400">ele fala mais</text> </g> <g filter="url(#m41b-glow)"><rect x="814" y="78" width="152" height="64" rx="14" fill="#1f1604" stroke="url(#m41b-grad)" stroke-width="2"/></g> <text x="890" y="105" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-weight="600" font-size="15">6. Veredito</text> <text x="890" y="124" text-anchor="middle" fill="#fcd9a0" font-family="Inter,sans-serif" font-size="11.5">dá ou não dá</text> </svg> <p class="text-xs text-neutral-500 mt-2 text-center">Repare que você só fala nos três primeiros blocos. Do quarto em diante, o trabalho é ouvir — e o veredito no fim é o que separa consultor de vendedor.</p>
+          </div>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6">
+            <div class="p-4 border-b border-dark-600"><h3 class="font-semibold text-amber-400">🎯 Copie e use — abertura e estrutura da call</h3></div>
+            <div class="p-4">
+              <p class="text-sm text-neutral-400 mb-3"><strong class="text-neutral-300">Objetivo:</strong> nos primeiros três minutos, fazer o cliente sentir que essa é a sua milésima call e não a primeira.</p>
+              <pre class="font-mono text-sm bg-dark-900/70 rounded-lg p-4 overflow-x-auto text-neutral-300 whitespace-pre-wrap">[abertura — tom calmo, câmera ligada]
+"Oi &lt;nome&gt;, tudo certo? Como foi o dia aí?"
+
+[estrutura — você diz como a conversa vai funcionar]
+"Deixa eu te falar como eu costumo conduzir: eu te conto rapidinho
+ o que a gente faz, faço umas perguntas pra entender como funciona
+ aí, e no fim eu te digo com sinceridade se eu tenho algo que
+ ajuda ou não. Fechado?"
+
+[contexto — um projeto real, sem detalhe técnico]
+"A gente tá agora resolvendo &lt;problema real que você está atacando&gt;
+ pra &lt;tipo de empresa&gt;. A parte chata foi &lt;dificuldade concreta&gt;."
+
+[três fios — três coisas que você resolve, nada mais]
+"No geral a gente entra em três frentes: &lt;frente 1&gt;,
+ &lt;frente 2&gt; e &lt;frente 3&gt;."
+
+[silêncio de dois segundos — deixe ele escolher o fio]
+
+[transição para as perguntas]
+"Antes de eu chutar qualquer coisa: me conta como vocês
+ fazem isso hoje. Não quero supor."</pre>
+              <p class="text-sm text-neutral-400 mt-3"><strong class="text-neutral-300">Como verificar:</strong> depois de dizer os três fios, cale-se. Se o cliente perguntar sobre um deles, o roteiro funcionou — aquele é o problema que dói. Se ele não perguntar nada, seus três fios não eram sobre ele.</p>
+            </div>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 hover:bg-amber-500/30 transition-colors"><span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span>
+              <span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 5 -->
+        <section id="topico-5" data-inema-topic="modulo-4-1#topico-5" class="mb-16">
+          <div class="flex items-center justify-between mb-6"> <div class="flex items-center space-x-4"> <span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">5</span> <h2 class="text-2xl font-bold">🌡️ Perguntas de temperatura e de dor</h2> </div> <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"> <span aria-hidden="true">?</span><span>Tenho dúvida</span> </button> </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m4-1-t5-p1"> Existem dois tipos de pergunta na call. As de <strong class="text-amber-400">temperatura</strong> medem quanto o cliente já confia em você — o que importa não é a resposta, é o <em>tamanho</em> dela. As de <strong class="text-amber-400">dor</strong> medem quanto o problema custa — e é delas que sai o seu preço. </p>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6">
+            <div class="p-4 border-b border-dark-600"><h3 class="font-semibold text-amber-400">🎯 Copie e use — banco de perguntas</h3></div>
+            <div class="p-4">
+              <p class="text-sm text-neutral-400 mb-3"><strong class="text-neutral-300">Objetivo:</strong> ter sempre a próxima pergunta na ponta da língua, sem improvisar no meio da conversa.</p>
+              <pre class="font-mono text-sm bg-dark-900/70 rounded-lg p-4 overflow-x-auto text-neutral-300 whitespace-pre-wrap">TEMPERATURA (leia o TAMANHO da resposta)
+- "De onde você fala?"
+- "Como foi a semana aí?"
+- "Há quanto tempo você tá nessa operação?"
+- "Como vocês fazem &lt;o processo&gt; hoje?"
+  → resposta de 3 palavras  = frio, guarda alta
+  → resposta com história   = quente, pode aprofundar
+
+DOR (leia os NÚMEROS da resposta)
+- "Quantos &lt;eventos: ligações, pedidos, orçamentos&gt; por dia?"
+- "Desses, quantos vocês perdem ou deixam passar?"
+- "Quanto vale, em média, um &lt;evento&gt; fechado?"
+- "Quem cuida disso hoje e quanto tempo por dia isso toma?"
+- "Se isso continuar do jeito que tá pelos próximos 12 meses,
+   qual o custo?"
+
+DECISÃO
+- "Além de você, quem mais precisa concordar?"
+- "Vocês já tentaram resolver isso antes? O que aconteceu?"</pre>
+              <p class="text-sm text-neutral-400 mt-3"><strong class="text-neutral-300">Como verificar:</strong> ao fim da call você consegue escrever uma frase do tipo "esse problema custa cerca de &lt;valor&gt; por mês para eles". Se não consegue, faltou pergunta de dor — e você ainda não pode falar de preço.</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+              <h4 class="font-bold text-emerald-400 mb-4">✓ Pergunta que abre</h4>
+              <ul class="space-y-3 text-neutral-300 text-sm">
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>"Como vocês fazem isso hoje?" — obriga a descrever, não a responder sim ou não.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>"O que já tentaram?" — traz o histórico de frustração, que é ouro.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>"Quanto isso custa por mês?" — transforma reclamação em número.</span></li>
+              </ul>
+            </div>
+            <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+              <h4 class="font-bold text-red-400 mb-4">✗ Pergunta que fecha</h4>
+              <ul class="space-y-3 text-neutral-300 text-sm">
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Vocês têm problema com isso?" — resposta: "não". Fim da conversa.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Você gostaria de economizar tempo?" — todo mundo gostaria; não diz nada.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Posso te mostrar nossa solução?" — pede permissão para monologar.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 hover:bg-amber-500/30 transition-colors"><span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span>
+              <span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 6 -->
+        <section id="topico-6" data-inema-topic="modulo-4-1#topico-6" class="mb-16">
+          <div class="flex items-center justify-between mb-6"> <div class="flex items-center space-x-4"> <span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">6</span> <h2 class="text-2xl font-bold">💵 Roteiro de preço e próximos passos</h2> </div> <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"> <span aria-hidden="true">?</span><span>Tenho dúvida</span> </button> </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m4-1-t6-p1"> Existe uma escola que manda dizer o preço e calar a boca. Este roteiro faz o contrário: você diz o valor e <strong class="text-amber-400">emenda os próximos passos</strong>, do jeito mais banal possível — porque o preço não é um evento dramático, é uma informação. Silêncio depois do número transforma o valor em uma parede. </p>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6">
+            <div class="p-4 border-b border-dark-600"><h3 class="font-semibold text-amber-400">🎯 Copie e use — dizer o preço</h3></div>
+            <div class="p-4">
+              <p class="text-sm text-neutral-400 mb-3"><strong class="text-neutral-300">Objetivo:</strong> apresentar o valor como rotina e sair da conversa com um próximo passo agendado.</p>
+              <pre class="font-mono text-sm bg-dark-900/70 rounded-lg p-4 overflow-x-auto text-neutral-300 whitespace-pre-wrap">[amarrar no problema, com o número dele]
+"Pelo que você me contou, isso custa perto de &lt;valor por mês&gt;
+ pra vocês hoje."
+
+[o preço, dito sem cerimônia]
+"Pra resolver &lt;o escopo pequeno&gt;, fica &lt;valor&gt;."
+
+[emendar logo — pagamento e prazo, tom de rotina]
+"A maioria dos clientes faz por transferência ou cartão, e a gente
+ costuma entregar isso em &lt;prazo curto&gt;."
+
+[próximo passo com duas opções de data]
+"Eu te mando o resumo hoje ainda. Pra gente revisar junto,
+ tenho quarta às 10h ou quinta às 16h — qual funciona melhor?"
+
+[se o valor pesar — reduza ESCOPO, nunca o preço]
+"Sem problema. Minha sugestão: a gente começa só por
+ &lt;a parte mais dolorida&gt;, que sai por &lt;valor menor&gt;. Você vê
+ como a gente trabalha e depois revisitamos o resto."</pre>
+              <p class="text-sm text-neutral-400 mt-3"><strong class="text-neutral-300">Como verificar:</strong> conte quantos segundos de silêncio existiram depois do número. Se foram mais de dois, você deixou o preço virar assunto. E confira: você reduziu escopo ou deu desconto? Desconto ensina que seu preço é chute.</p>
+            </div>
+          </div>
+          <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">🧮</span> A conta que sustenta o número</h3>
+            <p class="text-neutral-300 text-sm mb-3">Antes de falar qualquer valor, faça a conta do problema com os dados que ele mesmo te deu:</p>
+            <ul class="space-y-2 text-neutral-300 text-sm">
+              <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Eventos perdidos por dia × dias úteis no mês = <strong>volume mensal</strong>.</span></li>
+              <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Volume mensal × valor médio de cada um = <strong>tamanho do problema</strong>.</span></li>
+              <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Seu preço tem que ser uma fração visível disso. Se o problema vale US$ 2.000 por mês, uma proposta de US$ 10.000 não fecha — e não deveria. <em>Adapte ao seu mercado.</em></span></li>
+            </ul>
+          </div>
+          <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+            <p class="text-neutral-300 text-sm">Se a proposta escrita vai demorar mais de 24 horas, marque a call de revisão <strong>antes</strong> de desligar. Valor apresentado hoje e lido daqui a cinco dias já não vale o mesmo na cabeça de quem lê.</p>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 hover:bg-amber-500/30 transition-colors"><span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span>
+              <span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TOPICO 7 -->
+        <section id="topico-7" data-inema-topic="modulo-4-1#topico-7" class="mb-16">
+          <div class="flex items-center justify-between mb-6"> <div class="flex items-center space-x-4"> <span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">7</span> <h2 class="text-2xl font-bold">🧾 Roteiro de objeções</h2> </div> <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"> <span aria-hidden="true">?</span><span>Tenho dúvida</span> </button> </div>
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m4-1-t7-p1"> Toda objeção é o eco de alguma coisa que faltou antes: confiança de menos, ou tamanho do problema mal medido. Estes roteiros salvam a conversa — mas encare cada objeção recebida como <strong class="text-amber-400">nota da sua própria call</strong>, não como habilidade a treinar. </p>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6">
+            <div class="p-4 border-b border-dark-600"><h3 class="font-semibold text-amber-400">🎯 Copie e use — as quatro objeções mais comuns</h3></div>
+            <div class="p-4">
+              <p class="text-sm text-neutral-400 mb-3"><strong class="text-neutral-300">Objetivo:</strong> responder sem baixar preço e sem empurrar, sempre terminando com um próximo passo concreto.</p>
+              <pre class="font-mono text-sm bg-dark-900/70 rounded-lg p-4 overflow-x-auto text-neutral-300 whitespace-pre-wrap">1) "Tá caro."
+"Entendo, não é pouco dinheiro mesmo. Minha sugestão: a gente
+ começa só por &lt;a parte mais dolorida&gt;, que sai bem menos.
+ Você vê como a gente trabalha e depois revisitamos o resto.
+ Faz sentido?"
+   → reduz ESCOPO. Nunca: "consigo fazer por metade".
+
+2) "Vou pensar."
+"Claro. Só pra eu te ajudar a pensar: o que ficou menos claro —
+ o resultado, o prazo, ou o valor?
+ Vamos fazer assim: eu te mando um resumo de uma página hoje e
+ a gente conversa 15 minutos na quinta ou na sexta. Qual prefere?"
+   → transforma o adiamento em data. Sem data, é um não educado.
+
+3) "Já temos alguém que faz isso."
+"Ótimo, isso quer dizer que o problema é real. Curiosidade:
+ o que hoje ainda incomoda mesmo com &lt;a solução atual&gt;?
+ Se estiver tudo redondo, eu sou o primeiro a dizer pra você
+ não mexer."
+   → dá o veredito honesto; é o que constrói confiança.
+
+4) "Agora não é prioridade."
+"Perfeito, entendo. Só pra eu não te encher: quando isso vira
+ prioridade normalmente? Depois de &lt;evento que costuma disparar&gt;?
+ Te procuro em &lt;prazo combinado&gt;, então — e marco na agenda."
+   → saia com a próxima data, mesmo que seja daqui a 90 dias.</pre>
+              <p class="text-sm text-neutral-400 mt-3"><strong class="text-neutral-300">Como verificar:</strong> nenhuma das quatro respostas contém desconto, e todas terminam em pergunta ou data. Se a sua versão termina em "qualquer coisa me avisa", ela não é um roteiro — é uma despedida.</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+              <h4 class="font-bold text-emerald-400 mb-4">✓ Fazer</h4>
+              <ul class="space-y-3 text-neutral-300 text-sm">
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Concordar com o sentimento antes de responder ("entendo, não é pouco").</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Reduzir escopo para caber no bolso e no risco dele.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Sair sempre com uma data no calendário, mesmo em objeção dura.</span></li>
+              </ul>
+            </div>
+            <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+              <h4 class="font-bold text-red-400 mb-4">✗ Não fazer</h4>
+              <ul class="space-y-3 text-neutral-300 text-sm">
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Dar desconto — ensina que seu preço foi inventado.</span></li>
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Discutir com a objeção ("mas veja bem, o retorno é enorme...").</span></li>
+                <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Aceitar "eu te retorno" — quem retorna é você, com data marcada.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+            <h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> Atenção</h3>
+            <p class="text-neutral-300 text-sm">Se você está usando muito o roteiro de objeções, o problema não está aqui — está lá atrás. Objeção de preço recorrente significa que você mediu mal o tamanho do problema ou pediu dinheiro antes de ter confiança suficiente. Volte um passo e venda algo menor.</p>
+          </div>
+          <div class="flex justify-start mt-6">
+            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 hover:bg-amber-500/30 transition-colors"><span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span>
+              <span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- CHECAGEM LEVE -->
+        <div data-inema-check="modulo-4-1#q1" class="inema-check bg-dark-800 border border-dark-600 rounded-xl p-6 mb-12">
+          <p class="font-medium mb-4">Auto-verificação rápida (opcional): o cliente diz "tá caro". Qual é a resposta correta?</p>
+          <div class="inema-check-options space-y-2">
+            <button type="button" data-inema-check-option="0" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Oferecer 20% de desconto para fechar hoje</button>
+            <button type="button" data-inema-check-option="1" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Reduzir o escopo para a parte mais dolorida, mantendo o preço por unidade de trabalho</button>
+            <button type="button" data-inema-check-option="2" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Explicar de novo, com mais detalhes técnicos, por que o valor se justifica</button>
+          </div>
+          <div data-inema-check-feedback class="mt-4 text-sm" role="status" aria-live="polite"></div>
+        </div>
+
+        <!-- RESUMO FINAL -->
+        <section class="mb-12">
+          <div class="bg-gradient-to-br from-amber-900/40 via-dark-800 to-dark-800 rounded-xl border border-amber-500/30 p-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🎓</span> Resumo do Módulo</h2>
+            <div class="space-y-4 mb-8">
+              <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Roteiro é estrutura, não texto</strong><span class="text-neutral-400"> — adapte para a sua boca; decorar soa pior do que improvisar.</span></div></div>
+              <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Cada contato vende só o próximo passo</strong><span class="text-neutral-400"> — a ligação vende a reunião, o assunto vende a abertura, a call vende o primeiro sim pequeno.</span></div></div>
+              <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Pergunte antes de precificar</strong><span class="text-neutral-400"> — sem o tamanho do problema em números, qualquer valor é chute.</span></div></div>
+              <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Objeção se resolve com escopo</strong><span class="text-neutral-400"> — nunca com desconto, e sempre terminando com data no calendário.</span></div></div>
+            </div>
+            <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+              <h3 class="font-semibold text-amber-400 mb-2">Próximo Módulo:</h3>
+              <p class="text-neutral-300">4.2 - Plano de 30 dias — o calendário que transforma estes roteiros em um primeiro sim, semana por semana.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+              <a href="modulo-4-2.html" class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors">Próximo Módulo →</a>
+            </div>
+          </div>
+        </section>
+
+        <div data-inema-meter="trilha:4" class="inema-meter max-w-md mb-4" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da trilha 4">
+          <div class="flex items-center gap-2"><span class="text-xs text-neutral-500 w-24">Trilha 4:</span>
+            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-14" data-inema-meter-pct>0%</span>
+          </div>
+        </div>
+        <div data-inema-meter="curso" class="inema-meter max-w-md mb-8" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do curso">
+          <div class="flex items-center gap-2"><span class="text-xs text-neutral-500 w-24">Curso:</span>
+            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-14" data-inema-meter-pct>0%</span>
+          </div>
+        </div>
+
+        </div><!-- /coluna principal -->
+
+        <!-- TOC STICKY -->
+        <nav data-inema-toc aria-label="Índice da página" class="hidden lg:block sticky top-24 self-start">
+          <p class="text-sm text-neutral-400 mb-2">Seção <span class="inema-toc-pos">1</span> de <span class="inema-toc-total">7</span></p>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#topico-1" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10">1. Como usar os roteiros</a></li>
+            <li><a href="#topico-2" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10">2. Ligação fria</a></li>
+            <li><a href="#topico-3" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10">3. E-mail frio</a></li>
+            <li><a href="#topico-4" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10">4. Call de diagnóstico</a></li>
+            <li><a href="#topico-5" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10">5. Perguntas</a></li>
+            <li><a href="#topico-6" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10">6. Preço e próximos passos</a></li>
+            <li><a href="#topico-7" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10">7. Objeções</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    </article>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>🤝 Fundamentos de Vender IA — Módulo 4.1 · Trilha Prática · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800');
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => {
+        if (exp !== explanation) exp.classList.remove('active');
+      });
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', explanation.classList.contains('active') ? 'true' : 'false');
+    }
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const htmlEl = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !htmlEl.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); htmlEl.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      htmlEl.classList.toggle('dark');
+      localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.INEMA && INEMA.registerCheck) {
+        INEMA.registerCheck('modulo-4-1#q1', {
+          answer: 1,
+          explain: {
+            0: 'Não: desconto ensina que o seu preço foi inventado, e cria um cliente que vai negociar tudo para sempre.',
+            1: 'Exato — reduza o escopo para a dor principal. O preço continua íntegro e o cliente ainda vê seu trabalho.',
+            2: 'Não: repetir a explicação com mais detalhe técnico é discutir com a objeção, e detalhe técnico raramente é o que trava.'
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

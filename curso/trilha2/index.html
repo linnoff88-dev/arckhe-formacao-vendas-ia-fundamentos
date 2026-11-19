@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha 2 — Confiança | Fundamentos de Vender IA</title>
+  <meta name="inema-course" content="vender-ia-fundamentos">
+
+  <!-- ANTI-FOUC -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'purple' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; }
+        } else {
+          var legacy = localStorage.getItem('theme');
+          if (legacy === 'light') p.theme = 'claro';
+          else if (legacy === 'dark') p.theme = 'inema-dark';
+        }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = {
+        'inema-dark': { dark: true, attr: null, cs: 'dark' },
+        'claro': { dark: false, attr: null, cs: 'light' },
+        'sepia': { dark: false, attr: 'sepia', cs: 'light' },
+        'foco': { dark: null, attr: 'foco', cs: null },
+        'contraste': { dark: true, attr: 'contraste', cs: 'dark' }
+      };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark');
+      else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter');
+      html.setAttribute('data-accent', p.accent || 'purple');
+      var s = html.style;
+      var scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString());
+      s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch');
+      s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif'
+        : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald: [152,76,45], blue: [217,91,60], purple: [258,90,66], amber: [38,92,50], teal: [174,72,41], rose: [350,89,60] };
+      var a = ACC[p.accent] || ACC.purple;
+      s.setProperty('--accent-h', a[0] + ''); s.setProperty('--accent-s', a[1] + '%'); s.setProperty('--accent-l', a[2] + '%');
+      s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) {
+      try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {}
+    }
+  })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/learn.css">
+
+  <script type="application/json" data-inema-manifest>
+{"course":"vender-ia-fundamentos","tracks":[
+{"n":"1","title":"Mentalidade","modules":[{"id":"1-1","title":"Síndrome do impostor","topics":7,"href":"curso/trilha1/modulo-1-1.html"},{"id":"1-2","title":"Identidade de quem vende IA","topics":7,"href":"curso/trilha1/modulo-1-2.html"}]},
+{"n":"2","title":"Confiança","modules":[{"id":"2-1","title":"Como construir confiança 101","topics":7,"href":"curso/trilha2/modulo-2-1.html"},{"id":"2-2","title":"Posicionamento e prova","topics":7,"href":"curso/trilha2/modulo-2-2.html"}]},
+{"n":"3","title":"Fechamento","modules":[{"id":"3-1","title":"Fechar sem forçar","topics":7,"href":"curso/trilha3/modulo-3-1.html"},{"id":"3-2","title":"Conversão: objeções e próximos passos","topics":7,"href":"curso/trilha3/modulo-3-2.html"}]},
+{"n":"4","title":"Prática","modules":[{"id":"4-1","title":"Roteiros e scripts prontos","topics":7,"href":"curso/trilha4/modulo-4-1.html"},{"id":"4-2","title":"Plano de 30 dias","topics":7,"href":"curso/trilha4/modulo-4-2.html"}]}
+]}
+</script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    .skip { position: absolute; left: -9999px; top: 0; z-index: 100; background: #111827; color: #FACC15; padding: .5rem 1rem; border-radius: .5rem; }
+    .skip:focus { left: .5rem; top: .5rem; }
+    [id] { scroll-margin-top: 88px; }
+    :focus-visible { outline: 3px solid var(--accent-2, #38bdf8); outline-offset: 2px; }
+
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode - acentos blue (trilha 2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-nova-versao" style="position:relative;z-index:9998;background:#FACC15;color:#0c0c10;font:600 14px/1.4 Sora,Inter,system-ui,sans-serif;padding:10px 16px;text-align:center">Este curso tem uma versão nova, mais direta, com prática e conversa simulada. <a href="https://inematds.github.io/formacao-vendas-ia-fundamentos-v72/" style="color:#0c0c10;text-decoration:underline;font-weight:700">Abrir a versão nova →</a></div>
+
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🤝</span>
+            <span class="font-bold text-lg hidden sm:inline">Vender IA</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+          <span class="text-neutral-600">-</span>
+          <a href="https://inema.pro" target="_blank" class="text-amber-700 hover:text-amber-600 dark:text-slate-300 dark:hover:text-slate-200 text-sm font-medium">PRO</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors text-sm" title="Sua jornada no curso">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge hidden" data-inema-journey-badge aria-hidden="true"></span>
+          </button>
+          <a href="../trilha1/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Mentalidade</span></a>
+          <a href="index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Confiança</span></a>
+          <a href="../trilha3/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Fechamento</span></a>
+          <a href="../trilha4/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Prática</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-1">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo">
+
+    <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">TRILHA 2</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">🤝 Confiança</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl mb-2" data-inema-block="t2-hero-p1">
+          Vender não é convencer: é conseguir que confiem em você <strong class="text-blue-400">rápido</strong>.
+          Esta trilha mostra como a confiança é construída na prática — micro-venda por micro-venda — e como se
+          posicionar para que o cliente perceba você como alguém que já fez isso muitas vezes.
+        </p>
+        <p class="text-neutral-500 max-w-3xl">Ao fim da trilha você conduz uma call de diagnóstico lendo a temperatura do prospecto, oferece "fios" em vez de despejar apresentação, e sabe provar competência mesmo sem ter uma carteira de casos.</p>
+
+        <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">2</div><div class="text-xs text-neutral-400">Módulos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">14</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">~2h15</div><div class="text-xs text-neutral-400">Duração</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Básico</div><div class="text-xs text-neutral-400">Nível</div></div>
+        </div>
+        <div data-inema-meter="trilha:2" class="inema-meter mt-6 max-w-md" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da trilha 2">
+          <div class="flex items-center gap-3">
+            <span class="text-blue-400 font-bold w-12" data-inema-meter-pct>0%</span>
+            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-16" data-inema-meter-frac>0 de 14</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO SVG -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+      <div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 overflow-hidden">
+        <svg viewBox="0 0 1000 240" class="w-full h-auto" role="img" aria-label="Um estranho entra pela esquerda e atravessa cinco checkpoints em ciano — abrir a mensagem, aceitar a conversa, aparecer na call, abrir o jogo e aceitar o primeiro passo — convergindo à direita num cliente que confia">
+          <defs>
+            <linearGradient id="t2-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient>
+            <filter id="t2-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <pattern id="t2-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#3b82f6" opacity="0.12"/></pattern>
+            <marker id="t2-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"/></marker>
+            <marker id="t2-ahc" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+          </defs>
+          <rect x="0" y="0" width="1000" height="240" fill="url(#t2-grid)"/>
+          <g fill="none" stroke="#60a5fa" stroke-width="1.8" opacity="0.55">
+            <path d="M196,120 C300,120 320,38 452,38" marker-end="url(#t2-ah)"/>
+            <path d="M196,120 C300,120 320,79 452,79" marker-end="url(#t2-ah)"/>
+            <path d="M196,120 L452,120" marker-end="url(#t2-ah)"/>
+            <path d="M196,120 C300,120 320,161 452,161" marker-end="url(#t2-ah)"/>
+            <path d="M196,120 C300,120 320,202 452,202" marker-end="url(#t2-ah)"/>
+          </g>
+          <g fill="none" stroke="#38bdf8" stroke-width="1.8" opacity="0.5">
+            <path d="M588,38  C700,38 720,120 800,120" marker-end="url(#t2-ahc)"/>
+            <path d="M588,79  C700,79 720,120 800,120" marker-end="url(#t2-ahc)"/>
+            <path d="M588,120 L800,120" marker-end="url(#t2-ahc)"/>
+            <path d="M588,161 C700,161 720,120 800,120" marker-end="url(#t2-ahc)"/>
+            <path d="M588,202 C700,202 720,120 800,120" marker-end="url(#t2-ahc)"/>
+          </g>
+          <g filter="url(#t2-glow)"><rect x="40" y="86" width="156" height="68" rx="14" fill="#0e1622" stroke="url(#t2-grad)" stroke-width="2"/></g>
+          <text x="118" y="114" text-anchor="middle" fill="#60a5fa" font-family="Inter,sans-serif" font-weight="600" font-size="19">Um estranho</text>
+          <text x="118" y="136" text-anchor="middle" fill="#bfdbfe" font-family="Inter,sans-serif" font-size="12.5">confiança zero</text>
+          <g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+            <g class="wf-a"><rect x="452" y="22" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="43" text-anchor="middle" fill="#bfe6ff">abre a mensagem</text></g>
+            <g class="wf-a"><rect x="452" y="63" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="84" text-anchor="middle" fill="#bfe6ff">aceita conversar</text></g>
+            <g class="wf-a"><rect x="452" y="104" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="125" text-anchor="middle" fill="#bfe6ff">aparece na call</text></g>
+            <g class="wf-a"><rect x="452" y="145" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="166" text-anchor="middle" fill="#bfe6ff">abre o jogo</text></g>
+            <g class="wf-a"><rect x="452" y="186" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="207" text-anchor="middle" fill="#bfe6ff">diz o primeiro sim</text></g>
+          </g>
+          <g filter="url(#t2-glow)"><rect x="800" y="86" width="156" height="68" rx="14" fill="#0e1622" stroke="url(#t2-grad)" stroke-width="2"/></g>
+          <text x="878" y="114" text-anchor="middle" fill="#60a5fa" font-family="Inter,sans-serif" font-weight="600" font-size="17">Cliente</text>
+          <text x="878" y="136" text-anchor="middle" fill="#bfdbfe" font-family="Inter,sans-serif" font-size="12.5">confiança construída</text>
+        </svg>
+        <p class="text-xs text-neutral-500 mt-2 text-center">Repare que não existe "a venda": existem cinco micro-vendas em fila. Cada checkpoint é uma barreira de confiança que você precisa vencer sozinha.</p>
+      </div>
+    </div>
+
+    <!-- MAPA DA TRILHA -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-12">
+      <h2 class="text-2xl font-bold mb-6">Mapa da trilha</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="#modulo-2-1" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-blue-400 font-bold text-sm">2.1</span>
+            <span class="text-xs text-neutral-500">~70 min</span>
+          </div>
+          <h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">🤝 Como construir confiança 101</h3>
+          <p class="text-xs text-neutral-400">Confiança é a moeda</p>
+        </a>
+        <a href="#modulo-2-2" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-blue-400 font-bold text-sm">2.2</span>
+            <span class="text-xs text-neutral-500">~65 min</span>
+          </div>
+          <h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">🔭 Posicionamento e prova</h3>
+          <p class="text-xs text-neutral-400">Percepção é realidade</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- CARTÕES SIMPLES -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <a href="modulo-2-1.html" class="group block bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-6 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-blue-400 font-bold">2.1</span>
+            <span class="text-xs text-neutral-500">~70 min · 7 tópicos</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">🤝 Como construir confiança 101</h3>
+          <p class="text-sm text-neutral-400">Micro-vendas, temperatura, rapport, o básico da call, calma e estrutura: os mecanismos que fazem um estranho baixar a guarda.</p>
+        </a>
+        <a href="modulo-2-2.html" class="group block bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-6 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-blue-400 font-bold">2.2</span>
+            <span class="text-xs text-neutral-500">~65 min · 7 tópicos</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">🔭 Posicionamento e prova</h3>
+          <p class="text-sm text-neutral-400">Como o cliente enxerga você — e como provar competência quando ainda não existe uma carteira de casos para mostrar.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTEÚDO DETALHADO -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <h2 class="text-2xl font-bold mb-6">Conteúdo detalhado</h2>
+
+      <!-- MODULO 2.1 -->
+      <div id="modulo-2-1" data-inema-module="2-1" data-inema-track="2" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+        <div class="p-6 border-b border-dark-600">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-blue-400 font-bold">2.1</span>
+            <span class="text-xs text-neutral-500">~70 min</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">🤝 Como construir confiança 101</h3>
+          <p class="text-neutral-400 text-sm">Todo o resto do curso depende deste módulo: o que confiança é de fato, como ela se acumula em pequenos passos e o que você controla em cada conversa.</p>
+        </div>
+        <div class="divide-y divide-dark-600">
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-1-1" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+              <span class="text-lg">💠</span>
+              <div><span class="font-medium">Confiança é a única moeda da venda</span><span class="text-neutral-500 text-sm ml-2">- o produto não é o obstáculo</span></div>
+            </button>
+            <div id="painel-2-1-1" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Sua capacidade de vender caro tem pouco a ver com o quanto o produto é sofisticado e quase tudo a ver com o quanto o cliente confia em você. Um estranho oferecendo algo na rua recebe não — não por causa do produto, mas por ausência de histórico.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Enquanto você achar que o problema é a explicação técnica, vai continuar melhorando o slide errado. O gargalo quase sempre é confiança, não recurso.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">barreira de confiança · histórico · preço como função da confiança.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-1-2" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+              <span class="text-lg">🧩</span>
+              <div><span class="font-medium">Venda é a soma de micro-vendas</span><span class="text-neutral-500 text-sm ml-2">- cada checkpoint é uma venda</span></div>
+            </button>
+            <div id="painel-2-1-2" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Entre "não me conhece" e "comprou" existem checkpoints: abrir a mensagem, aceitar ouvir, marcar a conversa, aparecer nela, abrir o jogo, aceitar o próximo passo. Cada um é uma venda separada.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Quando um negócio morre, ele morre num checkpoint específico. Quem enxerga a fila consegue apontar onde perdeu; quem enxerga "a venda" só sabe que perdeu.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">checkpoint · funil · assunto que vende a abertura · vender o comparecimento.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-1-3" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+              <span class="text-lg">🌡️</span>
+              <div><span class="font-medium">Medir a temperatura do prospecto</span><span class="text-neutral-500 text-sm ml-2">- o tamanho da resposta te diz tudo</span></div>
+            </button>
+            <div id="painel-2-1-3" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Faça uma pergunta aberta e meça a resposta. Resposta de uma palavra: gelado, guarda alta, muito trabalho pela frente. Resposta longa, com detalhe e pergunta de volta: quente, já confia em você.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o único termômetro em tempo real que você tem. Ele diz se pode avançar ou se precisa investir mais em prova antes de propor qualquer coisa.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">pergunta aberta · leitura de temperatura · ciclo medir-responder-medir.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-1-4" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+              <span class="text-lg">🪢</span>
+              <div><span class="font-medium">Rapport sem forçar</span><span class="text-neutral-500 text-sm ml-2">- conexão real ou nenhuma</span></div>
+            </button>
+            <div id="painel-2-1-4" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Rapport é encontrar um ponto real de conexão entre você e a outra pessoa. Funciona quando é verdadeiro; quando é fabricado, o prospecto percebe e a confiança cai em vez de subir.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o jeito mais rápido de elevar confiança nos primeiros minutos — e também o mais fácil de estragar por excesso. A linha ética aqui é prática, não decorativa.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">ponto de conexão · rapport forçado · honestidade como estratégia.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-1-5" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+              <span class="text-lg">🎥</span>
+              <div><span class="font-medium">Câmera, microfone, horário: o básico</span><span class="text-neutral-500 text-sm ml-2">- sem isso nada mais importa</span></div>
+            </button>
+            <div id="painel-2-1-5" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Câmera ligada, áudio limpo, pontualidade e aparência de quem está trabalhando. Pessoas compram de pessoas — deixar o cliente ver seu rosto é o mínimo do mínimo.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É a parte 100% sob seu controle e a que mais gente ignora. Entrar sem câmera anula qualquer técnica de confiança que venha depois.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">presença · custo zero, impacto alto · checklist pré-call.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-1-6" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+              <span class="text-lg">🧊</span>
+              <div><span class="font-medium">Calma, não empolgação</span><span class="text-neutral-500 text-sm ml-2">- entusiasmo demais cheira a carência</span></div>
+            </button>
+            <div id="painel-2-1-6" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Chegue como quem já fez isso muitas vezes: cordial, tranquilo, sem euforia. Se fosse sua quarta conversa do dia, você não estaria eufórico — e é exatamente essa a impressão que ajuda.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Empolgação excessiva é lida como "esta pessoa não tem clientes". A calma comunica demanda sem que você precise afirmar nada.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">tom de voz · sinal de demanda · indiferença cordial.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-1-7" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+              <span class="text-lg">🗂️</span>
+              <div><span class="font-medium">Estrutura: as pessoas confiam em estrutura</span><span class="text-neutral-500 text-sm ml-2">- diga como a conversa vai ser</span></div>
+            </button>
+            <div id="painel-2-1-7" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Abrir a conversa anunciando o roteiro: contexto rápido, algumas perguntas, o que você tem, e no fim um veredito honesto sobre poder ou não ajudar. Estrutura sinaliza repetição; repetição sinaliza experiência.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">"Então, me conta do seu negócio" entrega que você está improvisando. O roteiro anunciado compra confiança nos primeiros trinta segundos.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">call de diagnóstico · roteiro anunciado · previsibilidade.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+          <button onclick="openModal('modal-2-1')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+          <a href="modulo-2-1.html" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">Ver Completo</a>
+        </div>
+      </div>
+
+      <!-- MODULO 2.2 -->
+      <div id="modulo-2-2" data-inema-module="2-2" data-inema-track="2" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+        <div class="p-6 border-b border-dark-600">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-blue-400 font-bold">2.2</span>
+            <span class="text-xs text-neutral-500">~65 min</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">🔭 Posicionamento e prova</h3>
+          <p class="text-neutral-400 text-sm">O cliente decide pela realidade que ele enxerga, não pela sua. Este módulo trata de gerenciar essa percepção com honestidade — e de provar competência antes de ter casos.</p>
+        </div>
+        <div class="divide-y divide-dark-600">
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-2-1" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+              <span class="text-lg">👁️</span>
+              <div><span class="font-medium">Realidade percebida é a única realidade</span><span class="text-neutral-500 text-sm ml-2">- o que ele vê é o que existe</span></div>
+            </button>
+            <div id="painel-2-2-1" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">A decisão do cliente é tomada dentro da percepção dele. Quem varou a noite no escritório e saiu um minuto antes do chefe chegar, para o chefe, saiu às cinco da tarde.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Você pode ter cem clientes e parecer desesperado; ou ter dois e parecer disputado. Quem paga a conta decide com base no que vê.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">percepção · sinal involuntário · gestão de impressão honesta.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-2-2" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+              <span class="text-lg">🏥</span>
+              <div><span class="font-medium">Ninguém quer ser o primeiro paciente</span><span class="text-neutral-500 text-sm ml-2">- experiência tranquiliza</span></div>
+            </button>
+            <div id="painel-2-2-2" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Ninguém escolhe ser a primeira cirurgia de um cirurgião. O cliente precisa sentir que você já resolveu esse tipo de problema antes — e o comportamento comunica isso mais do que qualquer frase.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Explica por que calma vence entusiasmo e por que "estou começando agora, mas prometo caprichar" derruba a venda em vez de gerar simpatia.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">aversão a risco · sinal de repetição · nunca inventar experiência.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-2-3" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+              <span class="text-lg">🧵</span>
+              <div><span class="font-medium">Fios: deixe o cliente puxar</span><span class="text-neutral-500 text-sm ml-2">- ofereça três, ele escolhe um</span></div>
+            </button>
+            <div id="painel-2-2-3" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Em vez de despejar tudo, ofereça três aberturas curtas — por exemplo "agenda horários", "responde clientes fora do expediente", "confirma agendamentos". O fio que ele puxar é o que realmente importa para ele.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Apresentação sem saber o que o cliente quer cai no vazio. Ninguém diz "eu quero exatamente isto"; ele revela pelo que pergunta.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">fio (abertura) · sinal de interesse · foco no que foi puxado.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-2-4" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+              <span class="text-lg">🎙️</span>
+              <div><span class="font-medium">A proporção entre falar e escutar</span><span class="text-neutral-500 text-sm ml-2">- fale só para ele falar</span></div>
+            </button>
+            <div id="painel-2-2-4" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Você fala apenas o suficiente para dar segurança de que é a pessoa certa; depois devolve a palavra. Cada informação que ele dá vira material para a proposta.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Conversa em que só você fala não produz informação nenhuma. E o excesso de detalhe técnico esfria: você não pergunta ao médico a lista de tudo que ele sabe curar.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">escuta ativa · evitar excesso técnico · informação como matéria-prima.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-2-5" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+              <span class="text-lg">📣</span>
+              <div><span class="font-medium">Se ele não sabe, você não fez</span><span class="text-neutral-500 text-sm ml-2">- trabalho invisível não conta</span></div>
+            </button>
+            <div id="painel-2-2-5" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Recurso construído e não comunicado é recurso que não existe para o cliente. Comunique o que está sendo feito, em que pé está e o que muda para ele.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É a causa mais comum de cliente insatisfeito com entrega boa. O trabalho estava lá; a percepção do trabalho, não.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">comunicação de progresso · visibilidade · ritual de atualização.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-2-6" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+              <span class="text-lg">🏗️</span>
+              <div><span class="font-medium">Prova quando você ainda não tem casos</span><span class="text-neutral-500 text-sm ml-2">- mostre movimento, não ficção</span></div>
+            </button>
+            <div id="painel-2-2-6" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Fale do que está construindo agora e dos problemas técnicos que está resolvendo. Isso mostra movimento real sem inventar cliente, número ou resultado.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Quem está começando acha que só tem duas opções: mentir ou ficar calado. Existe uma terceira, e ela é a única que sobrevive à primeira entrega.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">prova de processo · honestidade verificável · projeto em andamento.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-2-2-7" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+              <span class="text-lg">🧮</span>
+              <div><span class="font-medium">Promessa cumprida = prova acumulada</span><span class="text-neutral-500 text-sm ml-2">- crédito que você saca depois</span></div>
+            </button>
+            <div id="painel-2-2-7" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Confiança é apenas o padrão histórico de promessas cumpridas. O tamanho da promessa importa menos do que o fato de ela ter sido entregue.</p></div>
+                <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Cada promessa pequena entregue vira crédito, e o crédito é o que você saca quando pede um escopo maior e um preço maior — assunto direto da Trilha 3.</p></div>
+                <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">crédito de confiança · promessas pequenas · efeito acumulado.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+          <button onclick="openModal('modal-2-2')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+          <a href="modulo-2-2.html" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">Ver Completo</a>
+        </div>
+      </div>
+
+      <!-- NAVEGACAO ENTRE TRILHAS -->
+      <div class="flex flex-col sm:flex-row gap-4 mt-12 mb-8">
+        <a href="../../index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar ao início</a>
+        <a href="../trilha3/index.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Próxima Trilha: Fechamento →</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAIS IFRAME -->
+  <div id="modal-2-1" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()">
+    <div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+      <div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+        <div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.1</span><span class="font-semibold">Como construir confiança 101</span></div>
+        <button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button>
+      </div>
+      <iframe src="modulo-2-1.html" title="Módulo 2.1" class="flex-1 w-full rounded-b-xl"></iframe>
+    </div>
+  </div>
+  <div id="modal-2-2" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()">
+    <div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+      <div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+        <div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.2</span><span class="font-semibold">Posicionamento e prova</span></div>
+        <button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button>
+      </div>
+      <iframe src="modulo-2-2.html" title="Módulo 2.2" class="flex-1 w-full rounded-b-xl"></iframe>
+    </div>
+  </div>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>🤝 Fundamentos de Vender IA — Trilha 2 · Confiança · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800');
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => {
+        if (exp !== explanation) exp.classList.remove('active');
+      });
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', explanation.classList.contains('active') ? 'true' : 'false');
+    }
+
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) { modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeModal() {
+      document.querySelectorAll('.modal').forEach(modal => modal.classList.add('hidden'));
+      document.body.style.overflow = 'auto';
+    }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const htmlEl = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !htmlEl.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden');
+      htmlEl.classList.remove('dark');
+    } else {
+      themeToggleLightIcon.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      htmlEl.classList.toggle('dark');
+      localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }
+  </script>
+</body>
+</html>

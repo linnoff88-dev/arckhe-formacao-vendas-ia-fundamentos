@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha 3 — Fechamento | Fundamentos de Vender IA</title>
+  <meta name="inema-course" content="vender-ia-fundamentos">
+
+  <!-- ANTI-FOUC -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'purple' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; }
+        } else {
+          var legacy = localStorage.getItem('theme');
+          if (legacy === 'light') p.theme = 'claro';
+          else if (legacy === 'dark') p.theme = 'inema-dark';
+        }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = {
+        'inema-dark': { dark: true, attr: null, cs: 'dark' },
+        'claro': { dark: false, attr: null, cs: 'light' },
+        'sepia': { dark: false, attr: 'sepia', cs: 'light' },
+        'foco': { dark: null, attr: 'foco', cs: null },
+        'contraste': { dark: true, attr: 'contraste', cs: 'dark' }
+      };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark');
+      else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter');
+      html.setAttribute('data-accent', p.accent || 'purple');
+      var s = html.style;
+      var scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString());
+      s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch');
+      s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif'
+        : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald: [152,76,45], blue: [217,91,60], purple: [258,90,66], amber: [38,92,50], teal: [174,72,41], rose: [350,89,60] };
+      var a = ACC[p.accent] || ACC.purple;
+      s.setProperty('--accent-h', a[0] + ''); s.setProperty('--accent-s', a[1] + '%'); s.setProperty('--accent-l', a[2] + '%');
+      s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) {
+      try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {}
+    }
+  })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/learn.css">
+
+  <script type="application/json" data-inema-manifest>
+{"course":"vender-ia-fundamentos","tracks":[
+{"n":"1","title":"Mentalidade","modules":[{"id":"1-1","title":"Síndrome do impostor","topics":7,"href":"curso/trilha1/modulo-1-1.html"},{"id":"1-2","title":"Identidade de quem vende IA","topics":7,"href":"curso/trilha1/modulo-1-2.html"}]},
+{"n":"2","title":"Confiança","modules":[{"id":"2-1","title":"Como construir confiança 101","topics":7,"href":"curso/trilha2/modulo-2-1.html"},{"id":"2-2","title":"Posicionamento e prova","topics":7,"href":"curso/trilha2/modulo-2-2.html"}]},
+{"n":"3","title":"Fechamento","modules":[{"id":"3-1","title":"Fechar sem forçar","topics":7,"href":"curso/trilha3/modulo-3-1.html"},{"id":"3-2","title":"Conversão: objeções e próximos passos","topics":7,"href":"curso/trilha3/modulo-3-2.html"}]},
+{"n":"4","title":"Prática","modules":[{"id":"4-1","title":"Roteiros e scripts prontos","topics":7,"href":"curso/trilha4/modulo-4-1.html"},{"id":"4-2","title":"Plano de 30 dias","topics":7,"href":"curso/trilha4/modulo-4-2.html"}]}
+]}
+</script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    .skip { position: absolute; left: -9999px; top: 0; z-index: 100; background: #111827; color: #FACC15; padding: .5rem 1rem; border-radius: .5rem; }
+    .skip:focus { left: .5rem; top: .5rem; }
+    [id] { scroll-margin-top: 88px; }
+    :focus-visible { outline: 3px solid var(--accent-2, #38bdf8); outline-offset: 2px; }
+
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode - acentos purple (trilha 3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124, 58, 237, 0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .hover\:border-purple-500\/30:hover { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217, 119, 6, 0.08); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-nova-versao" style="position:relative;z-index:9998;background:#FACC15;color:#0c0c10;font:600 14px/1.4 Sora,Inter,system-ui,sans-serif;padding:10px 16px;text-align:center">Este curso tem uma versão nova, mais direta, com prática e conversa simulada. <a href="https://inematds.github.io/formacao-vendas-ia-fundamentos-v72/" style="color:#0c0c10;text-decoration:underline;font-weight:700">Abrir a versão nova →</a></div>
+
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🤝</span>
+            <span class="font-bold text-lg hidden sm:inline">Vender IA</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+          <span class="text-neutral-600">-</span>
+          <a href="https://inema.pro" target="_blank" class="text-amber-700 hover:text-amber-600 dark:text-slate-300 dark:hover:text-slate-200 text-sm font-medium">PRO</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors text-sm" title="Sua jornada no curso">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge hidden" data-inema-journey-badge aria-hidden="true"></span>
+          </button>
+          <a href="../trilha1/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Mentalidade</span></a>
+          <a href="../trilha2/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Confiança</span></a>
+          <a href="index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Fechamento</span></a>
+          <a href="../trilha4/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Prática</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-1">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo">
+
+    <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">TRILHA 3</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">🪶 Fechamento</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl mb-2" data-inema-block="t3-hero-p1">
+          Fechar não é convencer. É <strong class="text-purple-400">reduzir o tamanho do primeiro sim</strong> até
+          ele caber dentro da confiança que já existe — e então subir a escada, contrato por contrato.
+        </p>
+        <p class="text-neutral-500 max-w-3xl">Ao fim da trilha você sabe dimensionar o problema do cliente em dinheiro, definir a menor entrega que ele aceita sem pensar, responder objeção de preço sem dar desconto e nunca mais sair de uma conversa sem a próxima já marcada.</p>
+
+        <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">2</div><div class="text-xs text-neutral-400">Módulos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">14</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">~2h20</div><div class="text-xs text-neutral-400">Duração</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Intermediário</div><div class="text-xs text-neutral-400">Nível</div></div>
+        </div>
+        <div data-inema-meter="trilha:3" class="inema-meter mt-6 max-w-md" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da trilha 3">
+          <div class="flex items-center gap-3">
+            <span class="text-purple-400 font-bold w-12" data-inema-meter-pct>0%</span>
+            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-16" data-inema-meter-frac>0 de 14</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO SVG -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+      <div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 overflow-hidden">
+        <svg viewBox="0 0 1000 260" class="w-full h-auto" role="img" aria-label="Escada de escopo: um primeiro sim barato no degrau mais baixo, seguido de entregas maiores e mais caras à medida que a confiança acumulada, mostrada em ciano, sobe junto">
+          <defs>
+            <linearGradient id="t3-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c084fc"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
+            <filter id="t3-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <pattern id="t3-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#a855f7" opacity="0.12"/></pattern>
+            <marker id="t3-ahc" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+          </defs>
+          <rect x="0" y="0" width="1000" height="260" fill="url(#t3-grid)"/>
+          <path d="M70,215 L900,55" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-dasharray="9 9" opacity="0.45"/>
+          <g font-family="Inter,sans-serif">
+            <rect x="60" y="188" width="180" height="52" rx="12" fill="#1a1230" stroke="#c084fc" stroke-width="2"/>
+            <text x="150" y="212" text-anchor="middle" fill="#c084fc" font-weight="600" font-size="14">Primeiro sim</text>
+            <text x="150" y="230" text-anchor="middle" fill="#e9d5ff" font-size="12">menor valor possível</text>
+
+            <rect x="270" y="148" width="180" height="52" rx="12" fill="#1a1230" stroke="#c084fc" stroke-width="2"/>
+            <text x="360" y="172" text-anchor="middle" fill="#c084fc" font-weight="600" font-size="14">Entrega rápida</text>
+            <text x="360" y="190" text-anchor="middle" fill="#e9d5ff" font-size="12">promessa cumprida</text>
+
+            <rect x="480" y="108" width="180" height="52" rx="12" fill="#1a1230" stroke="#c084fc" stroke-width="2"/>
+            <text x="570" y="132" text-anchor="middle" fill="#c084fc" font-weight="600" font-size="14">Escopo maior</text>
+            <text x="570" y="150" text-anchor="middle" fill="#e9d5ff" font-size="12">problemas reais à vista</text>
+
+            <g filter="url(#t3-glow)"><rect x="700" y="52" width="220" height="62" rx="14" fill="#1a1230" stroke="url(#t3-grad)" stroke-width="2"/></g>
+            <text x="810" y="80" text-anchor="middle" fill="#c084fc" font-weight="600" font-size="16">Contrato grande</text>
+            <text x="810" y="100" text-anchor="middle" fill="#e9d5ff" font-size="12">agora é consultoria, não venda</text>
+          </g>
+          <g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+            <g class="wf-a"><rect x="60" y="24" width="150" height="30" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="135" y="44" text-anchor="middle" fill="#bfe6ff">confiança baixa</text></g>
+            <g class="wf-a"><rect x="270" y="24" width="150" height="30" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="345" y="44" text-anchor="middle" fill="#bfe6ff">+1 promessa</text></g>
+            <g class="wf-a"><rect x="480" y="24" width="150" height="30" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="555" y="44" text-anchor="middle" fill="#bfe6ff">+2 promessas</text></g>
+            <path d="M210,39 L268,39" fill="none" stroke="#38bdf8" stroke-width="1.8" opacity="0.5" marker-end="url(#t3-ahc)"/>
+            <path d="M420,39 L478,39" fill="none" stroke="#38bdf8" stroke-width="1.8" opacity="0.5" marker-end="url(#t3-ahc)"/>
+            <path d="M630,39 L698,52" fill="none" stroke="#38bdf8" stroke-width="1.8" opacity="0.5" marker-end="url(#t3-ahc)"/>
+          </g>
+        </svg>
+        <p class="text-xs text-neutral-500 mt-2 text-center">Olhe a linha de baixo (o que você vende) e a de cima (a confiança acumulada): o preço só sobe depois que a confiança subiu. Pular degrau é o que gera objeção.</p>
+      </div>
+    </div>
+
+    <!-- MAPA DA TRILHA -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-12">
+      <h2 class="text-2xl font-bold mb-6">Mapa da trilha</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="#modulo-3-1" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-purple-400 font-bold text-sm">3.1</span>
+            <span class="text-xs text-neutral-500">~70 min</span>
+          </div>
+          <h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">🪶 Fechar sem forçar</h3>
+          <p class="text-xs text-neutral-400">O sim pequeno vale mais</p>
+        </a>
+        <a href="#modulo-3-2" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-purple-400 font-bold text-sm">3.2</span>
+            <span class="text-xs text-neutral-500">~70 min</span>
+          </div>
+          <h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">🧯 Conversão: objeções e próximos passos</h3>
+          <p class="text-xs text-neutral-400">Objeção é erro seu, antes</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- CARTÕES SIMPLES -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <a href="modulo-3-1.html" class="group block bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-6 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-purple-400 font-bold">3.1</span>
+            <span class="text-xs text-neutral-500">~70 min · 7 tópicos</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">🪶 Fechar sem forçar</h3>
+          <p class="text-sm text-neutral-400">O primeiro sim pequeno, o risco do escopo grande, o poder de dizer não e a escada que leva do teste barato ao contrato cheio.</p>
+        </a>
+        <a href="modulo-3-2.html" class="group block bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-6 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-purple-400 font-bold">3.2</span>
+            <span class="text-xs text-neutral-500">~70 min · 7 tópicos</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">🧯 Conversão: objeções e próximos passos</h3>
+          <p class="text-sm text-neutral-400">Dimensionar o problema em dinheiro, dar o preço sem drama, reduzir escopo em vez de descontar e sair de toda conversa com a próxima marcada.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTEÚDO DETALHADO -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <h2 class="text-2xl font-bold mb-6">Conteúdo detalhado</h2>
+
+      <!-- MODULO 3.1 -->
+      <div id="modulo-3-1" data-inema-module="3-1" data-inema-track="3" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+        <div class="p-6 border-b border-dark-600">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-purple-400 font-bold">3.1</span>
+            <span class="text-xs text-neutral-500">~70 min</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">🪶 Fechar sem forçar</h3>
+          <p class="text-neutral-400 text-sm">Como transformar uma primeira conversa em um compromisso pequeno que o cliente aceita sem hesitar — e por que isso rende mais que perseguir o contrato grande.</p>
+        </div>
+        <div class="divide-y divide-dark-600">
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-1-1" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+              <span class="text-lg">🎯</span>
+              <div><span class="font-medium">O objetivo da primeira call não é o contrato</span><span class="text-neutral-500 text-sm ml-2">- você fecha o próximo passo</span></div>
+            </button>
+            <div id="painel-3-1-1" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Na primeira conversa com quem nunca ouviu falar de você, a confiança disponível não sustenta uma decisão cara. O que se fecha ali é o passo seguinte: um teste pago, um diagnóstico curto, uma nova reunião.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Quem tenta fechar o projeto inteiro na estreia recebe "vou pensar" — que é o não educado. Ajustar o alvo aumenta a taxa de sim sem baixar o preço final.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">próximo passo · compromisso proporcional à confiança · sim de baixo atrito.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-1-2" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+              <span class="text-lg">💵</span>
+              <div><span class="font-medium">O primeiro sim: o menor valor possível</span><span class="text-neutral-500 text-sm ml-2">- barato o bastante para não pensar</span></div>
+            </button>
+            <div id="painel-3-1-2" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Existe um valor abaixo do qual debater a compra custa mais tempo do que o próprio gasto. Em prospecção fria esse patamar costuma ficar na casa de US$ 100 — adapte ao seu mercado. É esse o preço do primeiro sim.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Decisões grandes exigem confiança grande. Quanto mais cara a escolha, mais o cliente pensa — e pensar, sem histórico com você, quase sempre termina em não.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">patamar de decisão automática · atrito de compra · ticket de entrada.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-1-3" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+              <span class="text-lg">⚠️</span>
+              <div><span class="font-medium">Barato demais vira suspeita</span><span class="text-neutral-500 text-sm ml-2">- preço fora da faixa parece golpe</span></div>
+            </button>
+            <div id="painel-3-1-3" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O primeiro sim é barato <em>em relação ao valor entregue</em>, não barato em termos absolutos. Ninguém vende um carro por US$ 100 sem levantar suspeita; a pechincha impossível afasta em vez de atrair.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Evita o erro de zerar o preço achando que o dinheiro é o bloqueio. Muitas vezes o bloqueio é a falta de confiança, e preço zero só reforça a desconfiança.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">âncora de comparação · valor percebido · preço como sinal de qualidade.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-1-4" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+              <span class="text-lg">🦴</span>
+              <div><span class="font-medium">Esqueletos no armário: o risco do escopo grande</span><span class="text-neutral-500 text-sm ml-2">- 3 semanas viram 6 meses</span></div>
+            </button>
+            <div id="painel-3-1-4" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Toda empresa esconde problemas que ninguém conta em duas conversas: processo informal, dado bagunçado, sistema antigo, gente que não colabora. Escopo grande fechado sem essa visibilidade é um chute.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Sem visibilidade, ou você cobra de menos e trabalha meses no preço de semanas, ou entrega mal. Nas duas saídas alguém sai perdendo — e a confiança vai junto.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">escopo (o que está incluído no trabalho) · risco escondido · subprecificação.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-1-5" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+              <span class="text-lg">🙅</span>
+              <div><span class="font-medium">Dizer não constrói confiança</span><span class="text-neutral-500 text-sm ml-2">- quem tem fila não aceita tudo</span></div>
+            </button>
+            <div id="painel-3-1-5" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Quando o cliente empolga e despeja dez ideias, a resposta profissional é escolher uma: "vamos começar por esta; o resto revisitamos depois". Dizer não — ou "ainda não" — é sinal de quem não depende daquele contrato.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Aceitar tudo ensina o cliente a pedir tudo. E cada sim automático corrói a percepção de que você escolhe seus projetos.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">autocontrole comercial · reduzir a proposta · adiar sem recusar.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-1-6" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+              <span class="text-lg">📉</span>
+              <div><span class="font-medium">Satisfação = realidade ÷ expectativa</span><span class="text-neutral-500 text-sm ml-2">- prometa menos, entregue</span></div>
+            </button>
+            <div id="painel-3-1-6" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">A satisfação do cliente é o resultado entregue dividido pelo que ele esperava. Inflar a expectativa para ganhar o contrato garante decepção mesmo com uma boa entrega.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">O tamanho da promessa importa menos que o cumprimento dela. Promessa pequena cumprida gera mais confiança que promessa enorme parcialmente atendida.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">gestão de expectativa · promessa cumprida · confiança como histórico.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-1-7" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+              <span class="text-lg">🪜</span>
+              <div><span class="font-medium">Escada de escopo: do pequeno ao grande</span><span class="text-neutral-500 text-sm ml-2">- na 3ª conversa vira consultoria</span></div>
+            </button>
+            <div id="painel-3-1-7" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Primeiro sim barato → entrega rápida → descoberta de como o negócio funciona de verdade → proposta maior e mais cara. Cada degrau é sustentado pela promessa cumprida no degrau anterior.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Depois de dois ou três degraus, a conversa deixa de ser venda e vira consultoria: a autoridade virou de lado e o preço para de ser o assunto principal.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">escada de escopo · autoridade invertida · expansão de contrato.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+          <button onclick="openModal('modal-3-1')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+          <a href="modulo-3-1.html" class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors">Ver Completo</a>
+        </div>
+      </div>
+
+      <!-- MODULO 3.2 -->
+      <div id="modulo-3-2" data-inema-module="3-2" data-inema-track="3" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+        <div class="p-6 border-b border-dark-600">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-purple-400 font-bold">3.2</span>
+            <span class="text-xs text-neutral-500">~70 min</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">🧯 Conversão: objeções e próximos passos</h3>
+          <p class="text-neutral-400 text-sm">Por que objeção é sintoma de erro anterior, como calcular o tamanho do problema em dinheiro e como nunca mais terminar uma conversa sem data marcada.</p>
+        </div>
+        <div class="divide-y divide-dark-600">
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-2-1" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+              <span class="text-lg">🚫</span>
+              <div><span class="font-medium">Objeção é sinal de falha anterior</span><span class="text-neutral-500 text-sm ml-2">- não é hora de técnica, é diagnóstico</span></div>
+            </button>
+            <div id="painel-3-2-1" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Receber objeção de preço significa uma de duas coisas: você superdimensionou o valor da sua solução para aquele problema, ou a confiança ainda não chegou no patamar que o preço exige.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Tratar objeção como falha desloca o esforço para onde ele resolve: no diagnóstico e na construção de confiança, e não em truques de contorno no fim da conversa.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">objeção como sintoma · causa raiz · venda baseada em confiança.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-2-2" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+              <span class="text-lg">🧮</span>
+              <div><span class="font-medium">Dimensionar o problema antes do preço</span><span class="text-neutral-500 text-sm ml-2">- quanto custa não resolver</span></div>
+            </button>
+            <div id="painel-3-2-2" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Antes de falar em valores, faça a conta com o cliente: quantas chamadas ele perde por dia, quanto vale em média cada uma, quanto isso soma no mês. O preço passa a ser comparado com o prejuízo, não com o seu custo.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Um problema de US$ 200 mil por mês torna óbvia uma solução de US$ 10 mil; um problema de US$ 1.000 torna essa mesma solução absurda. Sem a conta, você chuta. Adapte os números ao seu mercado.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">tamanho do problema · ROI (retorno sobre o investimento) · preço ancorado no prejuízo.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-2-3" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+              <span class="text-lg">💬</span>
+              <div><span class="font-medium">Dê o preço e siga para os próximos passos</span><span class="text-neutral-500 text-sm ml-2">- silêncio dramático não ajuda</span></div>
+            </button>
+            <div id="painel-3-2-3" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Diga o valor com naturalidade e emende com forma de pagamento, prazo e o que acontece depois. Nada de soltar o número e calar para pressionar.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">O silêncio transforma o preço num evento e obriga o cliente a reagir. Tratar o valor como rotina comunica que ele é rotina.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">naturalização do preço · logística da contratação · sem pressão artificial.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-2-4" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+              <span class="text-lg">✂️</span>
+              <div><span class="font-medium">Nunca negocie preço: reduza escopo</span><span class="text-neutral-500 text-sm ml-2">- desconto ensina o cliente errado</span></div>
+            </button>
+            <div id="painel-3-2-4" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Se o valor pesou, você não corta o preço: corta o que está incluído. "O preço é esse; se está fora do momento, resolvemos primeiro a parte mais urgente e revisitamos o resto."</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Desconto ensina que o número foi inventado e que sempre dá para negociar — e cria um tipo de relação em que cada contrato começa por uma disputa.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">preço firme · redução de escopo · precedente de negociação.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-2-5" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+              <span class="text-lg">📅</span>
+              <div><span class="font-medium">Agende a próxima reunião dentro da reunião</span><span class="text-neutral-500 text-sm ml-2">- nunca "eu te aviso"</span></div>
+            </button>
+            <div id="painel-3-2-5" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Toda conversa termina com a próxima marcada na agenda dos dois — tenha o cliente dito sim, não ou talvez. Sem data marcada, presuma que não haverá próxima conversa.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Perseguir cliente por mensagem passa desespero, e desespero é lido como falta de clientes. Compromisso na agenda também reduz muito o sumiço.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">compromisso agendado · continuidade da conversa · autoridade preservada.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-2-6" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+              <span class="text-lg">🍽️</span>
+              <div><span class="font-medium">Duas opções em vez de pergunta aberta</span><span class="text-neutral-500 text-sm ml-2">- "quinta ou quarta?"</span></div>
+            </button>
+            <div id="painel-3-2-6" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Em vez de "quando você pode?", ofereça dois horários. Se nenhum servir, ofereça outros dois. A conversa só encerra com uma data escolhida.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Pergunta aberta obriga o cliente a abrir a agenda e pensar; pensar é esforço, e esforço no fim da conversa vira "depois eu vejo".</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">escolha entre duas · redução de esforço · fechamento suave.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" aria-expanded="false" aria-controls="painel-3-2-7" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+              <span class="text-lg">⏳</span>
+              <div><span class="font-medium">Valor decai com o tempo (proposta e contrato)</span><span class="text-neutral-500 text-sm ml-2">- ele pula direto para o preço</span></div>
+            </button>
+            <div id="painel-3-2-7" class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div><span class="text-purple-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Se a proposta chega dias depois da conversa, o cliente abre o documento, rola até o número e já esqueceu por que aquilo valia a pena. O valor apresentado hoje vale menos na quinta-feira.</p></div>
+                <div><span class="text-purple-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">A correção é simples: envie rápido e marque uma reunião curta para percorrer a proposta ponto a ponto, reapresentando o valor ao lado do preço.</p></div>
+                <div><span class="text-purple-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">decaimento do valor percebido · proposta acompanhada · distância entre valor e preço.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+          <button onclick="openModal('modal-3-2')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+          <a href="modulo-3-2.html" class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors">Ver Completo</a>
+        </div>
+      </div>
+
+      <!-- NAVEGACAO ENTRE TRILHAS -->
+      <div class="flex flex-col sm:flex-row gap-4 mt-12 mb-8">
+        <a href="../../index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar ao início</a>
+        <a href="../trilha4/index.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próxima Trilha: Prática →</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAIS IFRAME -->
+  <div id="modal-3-1" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()">
+    <div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+      <div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+        <div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.1</span><span class="font-semibold">Fechar sem forçar</span></div>
+        <button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button>
+      </div>
+      <iframe src="modulo-3-1.html" title="Módulo 3.1" class="flex-1 w-full rounded-b-xl"></iframe>
+    </div>
+  </div>
+  <div id="modal-3-2" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()">
+    <div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+      <div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+        <div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.2</span><span class="font-semibold">Conversão: objeções e próximos passos</span></div>
+        <button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button>
+      </div>
+      <iframe src="modulo-3-2.html" title="Módulo 3.2" class="flex-1 w-full rounded-b-xl"></iframe>
+    </div>
+  </div>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>🤝 Fundamentos de Vender IA — Trilha 3 · Fechamento · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800');
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => {
+        if (exp !== explanation) exp.classList.remove('active');
+      });
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', explanation.classList.contains('active') ? 'true' : 'false');
+    }
+
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) { modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeModal() {
+      document.querySelectorAll('.modal').forEach(modal => modal.classList.add('hidden'));
+      document.body.style.overflow = 'auto';
+    }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const htmlEl = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !htmlEl.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden');
+      htmlEl.classList.remove('dark');
+    } else {
+      themeToggleLightIcon.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      htmlEl.classList.toggle('dark');
+      localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }
+  </script>
+</body>
+</html>
