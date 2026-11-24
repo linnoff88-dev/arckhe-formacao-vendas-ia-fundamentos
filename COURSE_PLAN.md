@@ -1,6 +1,6 @@
 # Fundamentos de Vender IA — plano do curso
 
-Curso interativo do INEMA.CLUB para quem constrói soluções de IA e precisa vendê-las.
+Curso interativo do ARCKHÉ AI para quem constrói soluções de IA e precisa vendê-las.
 4 trilhas · 8 módulos · 56 tópicos · formato dark premium com camada de aprendizagem
 (progresso, dúvidas, anotações, "minha jornada", temas e preferências de leitura).
 
@@ -44,7 +44,7 @@ começando pelo menor "sim" possível e subindo o escopo à medida que a confian
 
 ## Decisões de formato
 
-- Todos os módulos têm exatamente **7 tópicos** (`data-inema-topic`), refletidos no manifesto.
+- Todos os módulos têm exatamente **7 tópicos** (`data-ARCKHÉ-topic`), refletidos no manifesto.
 - Cor principal do curso: **purple**. Dentro do curso, as trilhas usam emerald/blue/purple/amber.
 - Assets `learn.css` / `learn.js` compartilhados em `assets/`, referenciados por caminho relativo.
 - Módulos práticos (4.1 e 4.2) entregam roteiros e prompts copiáveis; módulos de fundamento

@@ -4,35 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Módulo 3.1 — Fechar sem forçar | Fundamentos de Vender IA</title>
-  <meta name="inema-course" content="vender-ia-fundamentos">
+  <meta name="ARCKHÉ-course" content="vender-ia-fundamentos">
 
   <!-- ANTI-FOUC -->
   <script>
   (function () {
     try {
       var html = document.documentElement;
-      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'purple' };
+      var DEF = { theme: 'ARCKHÉ-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'purple' };
       function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
       var p = clone(DEF);
       try {
-        var raw = localStorage.getItem('inema.prefs');
+        var raw = localStorage.getItem('ARCKHÉ.prefs');
         if (raw) {
           var parsed = JSON.parse(raw);
           if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; }
         } else {
           var legacy = localStorage.getItem('theme');
           if (legacy === 'light') p.theme = 'claro';
-          else if (legacy === 'dark') p.theme = 'inema-dark';
+          else if (legacy === 'dark') p.theme = 'ARCKHÉ-dark';
         }
       } catch (e) { p = clone(DEF); }
       var THEMES = {
-        'inema-dark': { dark: true, attr: null, cs: 'dark' },
+        'ARCKHÉ-dark': { dark: true, attr: null, cs: 'dark' },
         'claro': { dark: false, attr: null, cs: 'light' },
         'sepia': { dark: false, attr: 'sepia', cs: 'light' },
         'foco': { dark: null, attr: 'foco', cs: null },
         'contraste': { dark: true, attr: 'contraste', cs: 'dark' }
       };
-      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      var t = THEMES[p.theme] || THEMES['ARCKHÉ-dark'];
       if (t.dark === true) html.classList.add('dark');
       else if (t.dark === false) html.classList.remove('dark');
       if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
@@ -41,7 +41,7 @@
       html.setAttribute('data-accent', p.accent || 'purple');
       var s = html.style;
       var scale = (+p.fontScale || 100);
-      s.setProperty('--inema-font-scale', (scale / 100).toString());
+      s.setProperty('--ARCKHÉ-font-scale', (scale / 100).toString());
       s.setProperty('font-size', scale + '%');
       s.setProperty('--measure', (+p.lineWidth || 68) + 'ch');
       s.setProperty('--lh-body', (+p.leading || 1.7).toString());
@@ -65,7 +65,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/learn.css">
 
-  <script type="application/json" data-inema-manifest>
+  <script type="application/json" data-ARCKHÉ-manifest>
 {"course":"vender-ia-fundamentos","tracks":[
 {"n":"1","title":"Mentalidade","modules":[{"id":"1-1","title":"Síndrome do impostor","topics":7,"href":"curso/trilha1/modulo-1-1.html"},{"id":"1-2","title":"Identidade de quem vende IA","topics":7,"href":"curso/trilha1/modulo-1-2.html"}]},
 {"n":"2","title":"Confiança","modules":[{"id":"2-1","title":"Como construir confiança 101","topics":7,"href":"curso/trilha2/modulo-2-1.html"},{"id":"2-2","title":"Posicionamento e prova","topics":7,"href":"curso/trilha2/modulo-2-2.html"}]},
@@ -123,7 +123,7 @@
     }
   </style>
 </head>
-<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-nova-versao" style="position:relative;z-index:9998;background:#FACC15;color:#0c0c10;font:600 14px/1.4 Sora,Inter,system-ui,sans-serif;padding:10px 16px;text-align:center">Este curso tem uma versão nova, mais direta, com prática e conversa simulada. <a href="https://inematds.github.io/formacao-vendas-ia-fundamentos-v72/" style="color:#0c0c10;text-decoration:underline;font-weight:700">Abrir a versão nova →</a></div>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-nova-versao" style="position:relative;z-index:9998;background:#FACC15;color:#0c0c10;font:600 14px/1.4 Sora,Inter,system-ui,sans-serif;padding:10px 16px;text-align:center">Este curso tem uma versão nova, mais direta, com prática e conversa simulada. <a href="https://linnoff88-dev.github.io/ style="color:#0c0c10;text-decoration:underline;font-weight:700">Abrir a versão nova →</a></div>
 
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
   <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
@@ -135,14 +135,14 @@
             <span class="font-bold text-lg hidden sm:inline">Vender IA</span>
           </a>
           <span class="text-neutral-600">|</span>
-          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+          <a href="https://ARCKHÉ AI" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">ARCKHÉ AI</a>
           <span class="text-neutral-600">-</span>
-          <a href="https://inema.pro" target="_blank" class="text-amber-700 hover:text-amber-600 dark:text-slate-300 dark:hover:text-slate-200 text-sm font-medium">PRO</a>
+          <a href="https://ARCKHÉ.pro" target="_blank" class="text-amber-700 hover:text-amber-600 dark:text-slate-300 dark:hover:text-slate-200 text-sm font-medium">PRO</a>
         </div>
         <div class="flex items-center space-x-1 sm:space-x-2">
-          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors text-sm" title="Sua jornada no curso">
+          <button type="button" data-ARCKHÉ-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors text-sm" title="Sua jornada no curso">
             <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
-            <span class="inema-journey-badge hidden" data-inema-journey-badge aria-hidden="true"></span>
+            <span class="ARCKHÉ-journey-badge hidden" data-ARCKHÉ-journey-badge aria-hidden="true"></span>
           </button>
           <a href="../trilha1/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Mentalidade</span></a>
           <a href="../trilha2/index.html" class="px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Confiança</span></a>
@@ -168,23 +168,23 @@
       </div>
     </nav>
 
-    <article id="modulo-3-1" data-inema-module="3-1" data-inema-track="3">
+    <article id="modulo-3-1" data-ARCKHÉ-module="3-1" data-ARCKHÉ-track="3">
     <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MODULO 3.1</span>
         <h1 class="text-3xl sm:text-4xl font-bold mb-4">🪶 Fechar sem forçar</h1>
-        <p class="text-lg text-neutral-400 max-w-3xl" data-inema-block="m3-1-head">Fechar não é empurrar. É pedir um sim do tamanho da confiança que existe hoje — e depois usar esse sim para construir a confiança que ainda não existe.</p>
+        <p class="text-lg text-neutral-400 max-w-3xl" data-ARCKHÉ-block="m3-1-head">Fechar não é empurrar. É pedir um sim do tamanho da confiança que existe hoje — e depois usar esse sim para construir a confiança que ainda não existe.</p>
         <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
           <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">7</div><div class="text-xs text-neutral-400">Tópicos</div></div>
           <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">70</div><div class="text-xs text-neutral-400">Minutos</div></div>
           <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Intermediário</div><div class="text-xs text-neutral-400">Nível</div></div>
           <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Teoria+Prática</div><div class="text-xs text-neutral-400">Tipo</div></div>
         </div>
-        <div data-inema-meter="modulo:3-1" class="inema-meter mt-6 max-w-md" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do módulo 3.1">
+        <div data-ARCKHÉ-meter="modulo:3-1" class="ARCKHÉ-meter mt-6 max-w-md" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do módulo 3.1">
           <div class="flex items-center gap-3">
-            <span class="text-purple-400 font-bold w-12" data-inema-meter-pct>0%</span>
-            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
-            <span class="text-xs text-neutral-400 w-16" data-inema-meter-frac>0 de 7</span>
+            <span class="text-purple-400 font-bold w-12" data-ARCKHÉ-meter-pct>0%</span>
+            <div class="ARCKHÉ-bar flex-1"><div class="ARCKHÉ-bar__fill" data-ARCKHÉ-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-16" data-ARCKHÉ-meter-frac>0 de 7</span>
           </div>
         </div>
       </div>
@@ -196,15 +196,15 @@
         <div><!-- COLUNA PRINCIPAL -->
 
         <!-- TOPICO 1 -->
-        <section id="topico-1" data-inema-topic="modulo-3-1#topico-1" class="mb-16">
+        <section id="topico-1" data-ARCKHÉ-topic="modulo-3-1#topico-1" class="mb-16">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center space-x-4">
               <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
               <h2 class="text-2xl font-bold">🎯 O objetivo da primeira call não é o contrato</h2>
             </div>
-            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+            <button type="button" data-ARCKHÉ-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
           </div>
-          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m3-1-t1-p1">
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-ARCKHÉ-block="m3-1-t1-p1">
             Quem chega numa primeira conversa querendo assinar um projeto de alto valor está pedindo algo que o outro lado
             ainda não tem como dar. Falta o único insumo que autoriza uma decisão cara:
             <strong class="text-purple-400">confiança acumulada</strong>. O que se fecha numa primeira call é o
@@ -226,7 +226,7 @@
               <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong class="text-white">Confiança alta</strong> (você já entregou promessas): o pedido pode ser o contrato longo, com preço cheio.</span></li>
             </ul>
           </div>
-          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m3-1-t1-p2">Na prática, a primeira call tem três momentos — e nenhum deles se chama "assinatura":</p>
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-ARCKHÉ-block="m3-1-t1-p2">Na prática, a primeira call tem três momentos — e nenhum deles se chama "assinatura":</p>
           <div class="space-y-6 mb-6">
             <div class="flex items-start space-x-4">
               <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
@@ -251,22 +251,22 @@
             </div>
           </div>
           <div class="flex justify-start mt-6">
-            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
-              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            <button type="button" data-ARCKHÉ-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="ARCKHÉ-ico-todo" aria-hidden="true">○</span><span class="ARCKHÉ-ico-done hidden" aria-hidden="true">●</span><span class="ARCKHÉ-label-todo">Marcar como lido</span><span class="ARCKHÉ-label-done hidden">Lido</span>
             </button>
           </div>
         </section>
 
         <!-- TOPICO 2 -->
-        <section id="topico-2" data-inema-topic="modulo-3-1#topico-2" class="mb-16">
+        <section id="topico-2" data-ARCKHÉ-topic="modulo-3-1#topico-2" class="mb-16">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center space-x-4">
               <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
               <h2 class="text-2xl font-bold">💵 O primeiro sim: o menor valor possível</h2>
             </div>
-            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+            <button type="button" data-ARCKHÉ-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
           </div>
-          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t2-p1">
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-ARCKHÉ-block="m3-1-t2-p1">
             Existe um patamar de preço abaixo do qual as pessoas <strong class="text-purple-400">param de deliberar</strong>.
             Em prospecção fria com pequenas e médias empresas, esse patamar costuma girar em torno de
             <strong class="text-white">US$ 100</strong> — adapte ao seu mercado. A lógica não é o dinheiro: é que discutir
@@ -330,22 +330,22 @@ em 2 linhas por que a nº 1 venceu.</pre>
             <p class="text-neutral-300 text-sm">Descubra o patamar do seu mercado perguntando, ainda na call: "quando vocês testam um fornecedor novo, até quanto costuma passar sem virar processo interno de aprovação?". A resposta é o teto da sua primeira oferta.</p>
           </div>
           <div class="flex justify-start mt-6">
-            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
-              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            <button type="button" data-ARCKHÉ-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="ARCKHÉ-ico-todo" aria-hidden="true">○</span><span class="ARCKHÉ-ico-done hidden" aria-hidden="true">●</span><span class="ARCKHÉ-label-todo">Marcar como lido</span><span class="ARCKHÉ-label-done hidden">Lido</span>
             </button>
           </div>
         </section>
 
         <!-- TOPICO 3 -->
-        <section id="topico-3" data-inema-topic="modulo-3-1#topico-3" class="mb-16">
+        <section id="topico-3" data-ARCKHÉ-topic="modulo-3-1#topico-3" class="mb-16">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center space-x-4">
               <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
               <h2 class="text-2xl font-bold">⚠️ Barato demais vira suspeita</h2>
             </div>
-            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+            <button type="button" data-ARCKHÉ-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
           </div>
-          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t3-p1">
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-ARCKHÉ-block="m3-1-t3-p1">
             O primeiro sim é barato <em>em relação ao valor percebido</em>, nunca barato em termos absolutos.
             Ninguém compra um carro por US$ 100: o preço tão fora da escala do produto vira sinal de golpe.
             O ponto certo é aquele em que o cliente pensa <strong class="text-purple-400">"pelo que isso pode me dar, é pouco"</strong> —
@@ -376,22 +376,22 @@ em 2 linhas por que a nº 1 venceu.</pre>
             <p class="text-neutral-300 text-sm">Descubra com o que o cliente vai comparar sua entrega: um agente de atendimento é comparado a uma assinatura mensal de ferramenta pronta; uma auditoria, a horas de consultoria. O primeiro sim fica no mesmo <em>universo</em> dessa referência — um pouco acima dela, nunca dez vezes abaixo.</p>
           </div>
           <div class="flex justify-start mt-6">
-            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
-              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            <button type="button" data-ARCKHÉ-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="ARCKHÉ-ico-todo" aria-hidden="true">○</span><span class="ARCKHÉ-ico-done hidden" aria-hidden="true">●</span><span class="ARCKHÉ-label-todo">Marcar como lido</span><span class="ARCKHÉ-label-done hidden">Lido</span>
             </button>
           </div>
         </section>
 
         <!-- TOPICO 4 -->
-        <section id="topico-4" data-inema-topic="modulo-3-1#topico-4" class="mb-16">
+        <section id="topico-4" data-ARCKHÉ-topic="modulo-3-1#topico-4" class="mb-16">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center space-x-4">
               <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
               <h2 class="text-2xl font-bold">🦴 Esqueletos no armário: o risco do escopo grande</h2>
             </div>
-            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+            <button type="button" data-ARCKHÉ-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
           </div>
-          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t4-p1">
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-ARCKHÉ-block="m3-1-t4-p1">
             Toda empresa tem problemas que ninguém conta na primeira conversa: a planilha que sustenta o processo inteiro,
             o sistema antigo sem integração, a pessoa que precisa aprovar e nunca responde. Fechar um
             <strong class="text-purple-400">escopo grande</strong> depois de duas conversas é apostar que esses esqueletos não existem.
@@ -428,22 +428,22 @@ em 2 linhas por que a nº 1 venceu.</pre>
             E <strong>ROI</strong> (retorno sobre investimento) é quanto o cliente ganha ou economiza dividido pelo que ele pagou.</p>
           </div>
           <div class="flex justify-start mt-6">
-            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
-              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            <button type="button" data-ARCKHÉ-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="ARCKHÉ-ico-todo" aria-hidden="true">○</span><span class="ARCKHÉ-ico-done hidden" aria-hidden="true">●</span><span class="ARCKHÉ-label-todo">Marcar como lido</span><span class="ARCKHÉ-label-done hidden">Lido</span>
             </button>
           </div>
         </section>
 
         <!-- TOPICO 5 -->
-        <section id="topico-5" data-inema-topic="modulo-3-1#topico-5" class="mb-16">
+        <section id="topico-5" data-ARCKHÉ-topic="modulo-3-1#topico-5" class="mb-16">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center space-x-4">
               <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
               <h2 class="text-2xl font-bold">🙅 Dizer não constrói confiança</h2>
             </div>
-            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+            <button type="button" data-ARCKHÉ-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
           </div>
-          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t5-p1">
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-ARCKHÉ-block="m3-1-t5-p1">
             Existe um momento perigoso na venda: aquele em que o cliente finalmente confia em você e começa a despejar ideias.
             "Seria ótimo se também fizesse isso, e isso, e aquilo." Quem passou meses procurando cliente tende a dizer sim a tudo.
             É exatamente aí que o <strong class="text-purple-400">autocontrole</strong> vale mais do que qualquer técnica de fechamento.
@@ -473,22 +473,22 @@ quando eu já conhecer seus &lt;processo/sistema/dados&gt; de verdade."</pre>
             <p class="text-neutral-300 text-sm">Substitua "não" por "não agora". A frase "isso a gente faz na etapa dois" preserva a ideia do cliente, protege seu prazo e ainda cria, de graça, o motivo da próxima conversa.</p>
           </div>
           <div class="flex justify-start mt-6">
-            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
-              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            <button type="button" data-ARCKHÉ-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="ARCKHÉ-ico-todo" aria-hidden="true">○</span><span class="ARCKHÉ-ico-done hidden" aria-hidden="true">●</span><span class="ARCKHÉ-label-todo">Marcar como lido</span><span class="ARCKHÉ-label-done hidden">Lido</span>
             </button>
           </div>
         </section>
 
         <!-- TOPICO 6 -->
-        <section id="topico-6" data-inema-topic="modulo-3-1#topico-6" class="mb-16">
+        <section id="topico-6" data-ARCKHÉ-topic="modulo-3-1#topico-6" class="mb-16">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center space-x-4">
               <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
               <h2 class="text-2xl font-bold">📉 Satisfação = realidade ÷ expectativa</h2>
             </div>
-            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+            <button type="button" data-ARCKHÉ-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
           </div>
-          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t6-p1">
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-ARCKHÉ-block="m3-1-t6-p1">
             A satisfação do cliente não depende do tamanho da entrega. Depende da razão entre o que ele recebeu e o que
             esperava receber. Quem está desesperado por fechar promete o mundo — e, ao inflar o denominador,
             <strong class="text-red-400">garante a decepção</strong> antes mesmo de começar o trabalho.
@@ -518,7 +518,7 @@ quando eu já conhecer seus &lt;processo/sistema/dados&gt; de verdade."</pre>
             </svg>
             <p class="text-xs text-neutral-500 mt-2 text-center">Olhe o denominador: você controla a expectativa antes de controlar a entrega. Reduzir a promessa é a forma mais rápida de aumentar a satisfação sem trabalhar mais.</p>
           </div>
-          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m3-1-t6-p2">
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-ARCKHÉ-block="m3-1-t6-p2">
             Existe uma consequência menos óbvia disso: <strong class="text-purple-400">o tamanho da promessa importa muito menos
             que o cumprimento dela</strong>. Cinco promessas pequenas cumpridas constroem mais confiança do que uma promessa
             grande parcialmente atendida — porque confiança é, no fundo, um histórico de previsões que se confirmaram.
@@ -526,22 +526,22 @@ quando eu já conhecer seus &lt;processo/sistema/dados&gt; de verdade."</pre>
             você não está vendendo — está criando uma dívida que vence na entrega.
           </p>
           <div class="flex justify-start mt-6">
-            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
-              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            <button type="button" data-ARCKHÉ-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="ARCKHÉ-ico-todo" aria-hidden="true">○</span><span class="ARCKHÉ-ico-done hidden" aria-hidden="true">●</span><span class="ARCKHÉ-label-todo">Marcar como lido</span><span class="ARCKHÉ-label-done hidden">Lido</span>
             </button>
           </div>
         </section>
 
         <!-- TOPICO 7 -->
-        <section id="topico-7" data-inema-topic="modulo-3-1#topico-7" class="mb-16">
+        <section id="topico-7" data-ARCKHÉ-topic="modulo-3-1#topico-7" class="mb-16">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center space-x-4">
               <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">7</span>
               <h2 class="text-2xl font-bold">🪜 Escada de escopo: do pequeno ao grande</h2>
             </div>
-            <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+            <button type="button" data-ARCKHÉ-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm flex-shrink-0"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
           </div>
-          <p class="text-neutral-300 mb-6 leading-relaxed" data-inema-block="m3-1-t7-p1">
+          <p class="text-neutral-300 mb-6 leading-relaxed" data-ARCKHÉ-block="m3-1-t7-p1">
             Tudo o que veio antes se organiza numa escada. Cada degrau é uma promessa cumprida que compra o direito de subir
             ao próximo. Você não pula degraus com técnica de persuasão — você sobe com <strong class="text-purple-400">histórico</strong>.
           </p>
@@ -570,7 +570,7 @@ quando eu já conhecer seus &lt;processo/sistema/dados&gt; de verdade."</pre>
             </svg>
             <p class="text-xs text-neutral-500 mt-2 text-center">Repare que o degrau 2 não é uma venda: é o acesso que a primeira entrega comprou. Sem ele, o degrau 3 seria um chute.</p>
           </div>
-          <p class="text-neutral-300 mb-4 leading-relaxed" data-inema-block="m3-1-t7-p2">
+          <p class="text-neutral-300 mb-4 leading-relaxed" data-ARCKHÉ-block="m3-1-t7-p2">
             A partir do terceiro degrau acontece a inversão mais interessante desse método: a conversa deixa de ser uma
             reunião de vendas e vira uma <strong class="text-purple-400">reunião de consultoria</strong>. Antes você torcia por um sim;
             agora ele pergunta o que você recomenda. A autoridade virou de lado — e virou porque as promessas anteriores foram cumpridas,
@@ -578,21 +578,21 @@ quando eu já conhecer seus &lt;processo/sistema/dados&gt; de verdade."</pre>
             foi porque não olhou o suficiente durante a entrega. Trate cada entrega como investigação paga.
           </p>
           <div class="flex justify-start mt-6">
-            <button type="button" data-inema-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
-              <span class="inema-ico-todo" aria-hidden="true">○</span><span class="inema-ico-done hidden" aria-hidden="true">●</span><span class="inema-label-todo">Marcar como lido</span><span class="inema-label-done hidden">Lido</span>
+            <button type="button" data-ARCKHÉ-read-toggle aria-pressed="false" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 transition-colors">
+              <span class="ARCKHÉ-ico-todo" aria-hidden="true">○</span><span class="ARCKHÉ-ico-done hidden" aria-hidden="true">●</span><span class="ARCKHÉ-label-todo">Marcar como lido</span><span class="ARCKHÉ-label-done hidden">Lido</span>
             </button>
           </div>
         </section>
 
         <!-- CHECAGEM LEVE -->
-        <div data-inema-check="modulo-3-1#q1" class="inema-check bg-dark-800 border border-dark-600 rounded-xl p-6 mb-12">
+        <div data-ARCKHÉ-check="modulo-3-1#q1" class="ARCKHÉ-check bg-dark-800 border border-dark-600 rounded-xl p-6 mb-12">
           <p class="font-medium mb-4">Auto-verificação rápida (opcional): um cliente novo, vindo de prospecção fria, diz que o seu preço está alto. Qual é a resposta alinhada com este módulo?</p>
-          <div class="inema-check-options space-y-2">
-            <button type="button" data-inema-check-option="0" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Dar 30% de desconto para fechar ainda hoje</button>
-            <button type="button" data-inema-check-option="1" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Reduzir a entrega a uma primeira etapa pequena, mantendo o preço proporcional</button>
-            <button type="button" data-inema-check-option="2" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Fazer o projeto inteiro de graça para provar valor</button>
+          <div class="ARCKHÉ-check-options space-y-2">
+            <button type="button" data-ARCKHÉ-check-option="0" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Dar 30% de desconto para fechar ainda hoje</button>
+            <button type="button" data-ARCKHÉ-check-option="1" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Reduzir a entrega a uma primeira etapa pequena, mantendo o preço proporcional</button>
+            <button type="button" data-ARCKHÉ-check-option="2" class="block w-full text-left px-4 py-2 rounded-lg bg-dark-700 border border-dark-600 hover:bg-dark-600 transition-colors text-sm">Fazer o projeto inteiro de graça para provar valor</button>
           </div>
-          <div data-inema-check-feedback class="mt-4 text-sm" role="status" aria-live="polite"></div>
+          <div data-ARCKHÉ-check-feedback class="mt-4 text-sm" role="status" aria-live="polite"></div>
         </div>
 
         <!-- RESUMO FINAL -->
@@ -616,32 +616,32 @@ quando eu já conhecer seus &lt;processo/sistema/dados&gt; de verdade."</pre>
           </div>
         </section>
 
-        <div data-inema-meter="trilha:3" class="inema-meter max-w-md mb-4" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da trilha 3">
+        <div data-ARCKHÉ-meter="trilha:3" class="ARCKHÉ-meter max-w-md mb-4" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da trilha 3">
           <div class="flex items-center gap-2"><span class="text-xs text-neutral-500 w-24">Trilha 3:</span>
-            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
-            <span class="text-xs text-neutral-400 w-14" data-inema-meter-pct>0%</span>
+            <div class="ARCKHÉ-bar flex-1"><div class="ARCKHÉ-bar__fill" data-ARCKHÉ-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-14" data-ARCKHÉ-meter-pct>0%</span>
           </div>
         </div>
-        <div data-inema-meter="curso" class="inema-meter max-w-md mb-8" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do curso">
+        <div data-ARCKHÉ-meter="curso" class="ARCKHÉ-meter max-w-md mb-8" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do curso">
           <div class="flex items-center gap-2"><span class="text-xs text-neutral-500 w-24">Curso:</span>
-            <div class="inema-bar flex-1"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
-            <span class="text-xs text-neutral-400 w-14" data-inema-meter-pct>0%</span>
+            <div class="ARCKHÉ-bar flex-1"><div class="ARCKHÉ-bar__fill" data-ARCKHÉ-meter-fill></div></div>
+            <span class="text-xs text-neutral-400 w-14" data-ARCKHÉ-meter-pct>0%</span>
           </div>
         </div>
 
         </div><!-- /coluna principal -->
 
         <!-- TOC STICKY -->
-        <nav data-inema-toc aria-label="Índice da página" class="hidden lg:block sticky top-24 self-start">
-          <p class="text-sm text-neutral-400 mb-2">Seção <span class="inema-toc-pos">1</span> de <span class="inema-toc-total">7</span></p>
+        <nav data-ARCKHÉ-toc aria-label="Índice da página" class="hidden lg:block sticky top-24 self-start">
+          <p class="text-sm text-neutral-400 mb-2">Seção <span class="ARCKHÉ-toc-pos">1</span> de <span class="ARCKHÉ-toc-total">7</span></p>
           <ul class="space-y-1 text-sm">
-            <li><a href="#topico-1" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">1. O objetivo da primeira call</a></li>
-            <li><a href="#topico-2" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">2. O primeiro sim</a></li>
-            <li><a href="#topico-3" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">3. Barato demais</a></li>
-            <li><a href="#topico-4" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">4. Esqueletos no armário</a></li>
-            <li><a href="#topico-5" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">5. Dizer não</a></li>
-            <li><a href="#topico-6" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">6. Realidade ÷ expectativa</a></li>
-            <li><a href="#topico-7" class="inema-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">7. Escada de escopo</a></li>
+            <li><a href="#topico-1" class="ARCKHÉ-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">1. O objetivo da primeira call</a></li>
+            <li><a href="#topico-2" class="ARCKHÉ-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">2. O primeiro sim</a></li>
+            <li><a href="#topico-3" class="ARCKHÉ-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">3. Barato demais</a></li>
+            <li><a href="#topico-4" class="ARCKHÉ-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">4. Esqueletos no armário</a></li>
+            <li><a href="#topico-5" class="ARCKHÉ-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">5. Dizer não</a></li>
+            <li><a href="#topico-6" class="ARCKHÉ-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">6. Realidade ÷ expectativa</a></li>
+            <li><a href="#topico-7" class="ARCKHÉ-toc-link block px-3 py-1.5 rounded-lg text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10">7. Escada de escopo</a></li>
           </ul>
         </nav>
       </div>
@@ -682,10 +682,10 @@ quando eu já conhecer seus &lt;processo/sistema/dados&gt; de verdade."</pre>
   </script>
   <script src="../../assets/learn.js"></script>
   <script>
-    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }
+    if (window.ARCKHÉ && typeof window.ARCKHÉ.init === 'function') { window.ARCKHÉ.init(); }
     window.addEventListener('DOMContentLoaded', function () {
-      if (window.INEMA && INEMA.registerCheck) {
-        INEMA.registerCheck('modulo-3-1#q1', {
+      if (window.ARCKHÉ && ARCKHÉ.registerCheck) {
+        ARCKHÉ.registerCheck('modulo-3-1#q1', {
           answer: 1,
           explain: {
             0: 'Não: desconto ensina que seu preço é negociável e enfraquece a percepção de valor.',

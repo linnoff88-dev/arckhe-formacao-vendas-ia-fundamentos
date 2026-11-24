@@ -1,4 +1,4 @@
-﻿# Fundamentos de Vender IA
+# Fundamentos de Vender IA
 
 <div align="center">
   <img src="capa/logo.svg" alt="Arckhé AI" height="48" />
@@ -6,21 +6,21 @@
 </div>
 
 
-Curso interativo do INEMA.CLUB: 4 trilhas, 8 mÃ³dulos e 56 tÃ³picos sobre como vender soluÃ§Ãµes de IA â€” mentalidade, confianÃ§a, fechamento e prÃ¡tica.
+Curso interativo do ARCKHÉ AI: 4 trilhas, 8 mÃ³dulos e 56 tÃ³picos sobre como vender soluÃ§Ãµes de IA â€” mentalidade, confianÃ§a, fechamento e prÃ¡tica.
 
 Abra `index.html` no navegador (funciona offline, sem build e sem cadastro). O progresso, as dÃºvidas e as anotaÃ§Ãµes ficam salvos no seu prÃ³prio navegador.
 
-Publicado em: https://inematds.github.io/formacao-vendas-ia-fundamentos/
+Publicado em: https://linnoff88-dev.github.io/
 
 Parte da FormaÃ§Ã£o Vendas com IA.
 
-<!-- inema-backlink:v1 -->
-## Mais no INEMA.CLUB
+<!-- ARCKHÉ-backlink:v1 -->
+## Mais no ARCKHÉ AI
 
-- [Ficha completa deste curso](https://www.inema.club/cursos/253-formacao-vendas-com-ia-3-fundamentos-de-vender-ia/)
-- [Guia: como aprender inteligÃªncia artificial](https://www.inema.club/aprender-inteligencia-artificial/)
-- [Todos os cursos](https://www.inema.club/cursos/)
-<!-- /inema-backlink:v1 -->
+- [Ficha completa deste curso](https://www.ARCKHÉ AI/cursos/253-formacao-vendas-com-ia-3-fundamentos-de-vender-ia/)
+- [Guia: como aprender inteligÃªncia artificial](https://www.ARCKHÉ AI/aprender-inteligencia-artificial/)
+- [Todos os cursos](https://www.ARCKHÉ AI/cursos/)
+<!-- /ARCKHÉ-backlink:v1 -->
 
 ---
 
